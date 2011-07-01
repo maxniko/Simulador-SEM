@@ -31,8 +31,6 @@ namespace ModelosTP
             cantidadTerminales.Enabled = false;
             horasSimulacion.Enabled = false;
 
-            Random r = new Random();
-
             Evento ev = new Evento();
             ev.Cliente = planificarCliente();
             eventos.Add(ev);

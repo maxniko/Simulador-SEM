@@ -7,5 +7,12 @@ namespace ModelosTP.Clases
 {
     class Cola
     {
+        private List<Cliente> listaCola;
+        private int nroCaja;
+
+        public List<Cliente> ListaCola
+        {
+
+        }
     }
 }

@@ -12,8 +12,14 @@ namespace ModelosTP
 {
     public partial class Form1 : Form
     {
-        private int horaSimulacion = 0;
-        private List<Cliente> 
+        private int TiempoSimulacion;
+        private int colaTerminales = 0;
+        private int maximaColaTerminales = 0;
+        private int TiempoMaxColaTerminales = 0;
+        private int TiempoMaxAtencCaja = 0;
+        private int terminalesLibres = 1;
+        private List<Evento> eventos;
+
         public Form1()
         {
             InitializeComponent();
@@ -24,7 +30,33 @@ namespace ModelosTP
             cantidadCajas.Enabled = false;
             cantidadTerminales.Enabled = false;
             horasSimulacion.Enabled = false;
-            retardoProximoCliente();
+
+            Evento ev = new Evento();
+            ev.Cliente = planificarCliente();
+            eventos.Add(ev);
+            while (TiempoSimulacion < Int32.Parse(horasSimulacion.Value.ToString()))
+            {
+                if (eventos.Count > 0)
+                {
+                    Evento evento = eventos[0];
+                    if(evento.Cliente != null)
+                    {
+                        TiempoSimulacion = TiempoSimulacion + evento.Cliente.HoraLlegada;
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+        }
+
+        private Cliente planificarCliente()
+        {
+            int hora = TiempoSimulacion + generarXNormal(7.08, 2.78, 0.14);
+            Cliente cliente = new Cliente();
+            cliente.HoraLlegada = hora;
+            return new Cliente();
         }
 
         private void bDetener_Click(object sender, EventArgs e)
@@ -32,14 +64,6 @@ namespace ModelosTP
             cantidadCajas.Enabled = true;
             cantidadTerminales.Enabled = true;
             horasSimulacion.Enabled = true;
-        }
-
-        private void planificarCliente()
-        {
-            int hora = horaSimulacion + generarXNormal(7.08, 2.78, 0.14);
-            Cliente cliente = new Cliente();
-            cliente.HoraLlegada = hora;
-            return new Cliente();
         }
 
         private int generarXNormal(double media, double desviacion, double moda)
@@ -80,6 +104,19 @@ namespace ModelosTP
                 }
             } while (listo = false);
             return x;
+        }
+
+        private void insertarEvento()
+        {
+            bool ok = false;
+            do
+            {
+                int indice = 0;
+                if (eventos.Count > 0)
+                {
+                    Evento e = eventos[indice];
+                }
+            } while (ok == false);
         }
     }
 }

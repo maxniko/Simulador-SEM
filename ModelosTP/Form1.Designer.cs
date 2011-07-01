@@ -188,14 +188,14 @@
             this.cantidadTerminales.Location = new System.Drawing.Point(9, 110);
             this.cantidadTerminales.Name = "cantidadTerminales";
             this.cantidadTerminales.Size = new System.Drawing.Size(76, 20);
-            this.cantidadTerminales.TabIndex = 7;
+            this.cantidadTerminales.TabIndex = 0;
             // 
             // cantidadCajas
             // 
             this.cantidadCajas.Location = new System.Drawing.Point(9, 71);
             this.cantidadCajas.Name = "cantidadCajas";
             this.cantidadCajas.Size = new System.Drawing.Size(76, 20);
-            this.cantidadCajas.TabIndex = 6;
+            this.cantidadCajas.TabIndex = 1;
             // 
             // horasSimulacion
             // 
@@ -244,8 +244,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.NumericUpDown cantidadTerminales;
-        private System.Windows.Forms.NumericUpDown cantidadCajas;
         private System.Windows.Forms.NumericUpDown horasSimulacion;
         private System.Windows.Forms.Label rTiempoEsperaMaximoCajas;
         private System.Windows.Forms.Label rTiempoEsperaPromedioCajas;
@@ -254,6 +252,8 @@
         private System.Windows.Forms.Label rTotalClientes;
         private System.Windows.Forms.Label rTiempoTramiteCliente;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.NumericUpDown cantidadCajas;
+        private System.Windows.Forms.NumericUpDown cantidadTerminales;
     }
 }
 

@@ -10,6 +10,7 @@ namespace ModelosTP.Clases
         private int horaEjecucion = 0;
         private Cliente cliente = null;
         private Caja caja = null;
+        private int tipoEvento = 0;
 
         public int HoraEjecucion
         {
@@ -26,6 +27,12 @@ namespace ModelosTP.Clases
         public Caja Caja
         {
             get { return caja; }
+            set { caja = value; }
+        }
+
+        public int TipoEvento
+        {
+            get { return tipoEvento; }
             set { caja = value; }
         }
     }

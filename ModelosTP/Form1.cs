@@ -23,6 +23,7 @@ namespace ModelosTP
         public Form1()
         {
             InitializeComponent();
+            Random r = new Random();
         }
 
         private void bComenzar_Click(object sender, EventArgs e)

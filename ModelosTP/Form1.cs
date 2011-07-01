@@ -23,7 +23,6 @@ namespace ModelosTP
         public Form1()
         {
             InitializeComponent();
-            Random r = new Random();
         }
 
         private void bComenzar_Click(object sender, EventArgs e)
@@ -31,6 +30,8 @@ namespace ModelosTP
             cantidadCajas.Enabled = false;
             cantidadTerminales.Enabled = false;
             horasSimulacion.Enabled = false;
+
+            Random r = new Random();
 
             Evento ev = new Evento();
             ev.Cliente = planificarCliente();

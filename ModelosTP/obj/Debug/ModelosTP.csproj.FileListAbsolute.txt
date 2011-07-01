@@ -1,0 +1,10 @@
+C:\Users\Administrator\AppData\Local\Temporary Projects\ModelosTP\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Administrator\AppData\Local\Temporary Projects\ModelosTP\obj\Debug\ModelosTP.Form1.resources
+C:\Users\Administrator\AppData\Local\Temporary Projects\ModelosTP\obj\Debug\ModelosTP.Properties.Resources.resources
+C:\Users\Administrator\AppData\Local\Temporary Projects\ModelosTP\obj\Debug\ModelosTP.csproj.GenerateResource.Cache
+C:\Users\Administrator\AppData\Local\Temporary Projects\ModelosTP\bin\Debug\ModelosTP.exe
+C:\Users\Administrator\AppData\Local\Temporary Projects\ModelosTP\bin\Debug\ModelosTP.pdb
+C:\Users\Administrator\AppData\Local\Temporary Projects\ModelosTP\obj\Debug\ModelosTP.exe
+C:\Users\Administrator\AppData\Local\Temporary Projects\ModelosTP\obj\Debug\ModelosTP.pdb
+D:\Data\UAP\4º Sistemas\Modelos y simulaciones\ModelosTP\ModelosTP\obj\Debug\ModelosTP.exe
+D:\Data\UAP\4º Sistemas\Modelos y simulaciones\ModelosTP\ModelosTP\obj\Debug\ModelosTP.pdb

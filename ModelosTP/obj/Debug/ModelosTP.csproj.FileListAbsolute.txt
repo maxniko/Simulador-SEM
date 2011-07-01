@@ -8,3 +8,5 @@ C:\Users\Administrator\AppData\Local\Temporary Projects\ModelosTP\obj\Debug\Mode
 C:\Users\Administrator\AppData\Local\Temporary Projects\ModelosTP\obj\Debug\ModelosTP.pdb
 D:\Data\UAP\4º Sistemas\Modelos y simulaciones\ModelosTP\ModelosTP\obj\Debug\ModelosTP.exe
 D:\Data\UAP\4º Sistemas\Modelos y simulaciones\ModelosTP\ModelosTP\obj\Debug\ModelosTP.pdb
+D:\Silvio\UAP\7mo Cuatrimestre\Modelos y Simulaciones\GIT\Simulador-SEM\ModelosTP\obj\Debug\ModelosTP.exe
+D:\Silvio\UAP\7mo Cuatrimestre\Modelos y Simulaciones\GIT\Simulador-SEM\ModelosTP\obj\Debug\ModelosTP.pdb

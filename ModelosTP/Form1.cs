@@ -14,12 +14,15 @@ namespace ModelosTP
     {
         Random r = new Random();
         private int TiempoSimulacion;
-        private int colaTerminales = 0;
         private int maximaColaTerminales = 0;
         private int TiempoMaxColaTerminales = 0;
         private int TiempoMaxAtencCaja = 0;
         private int terminalesLibres = 1;
-        private List<Evento> eventos;
+        private int totalClientesAtendidos = 0;
+        private List<Evento> eventos = new List<Evento>();
+        private List<Caja> cajas = new List<Caja>();
+        private List<Terminal> terminales = new List<Terminal>();
+        private int colaTerminales = 0;
 
         public Form1()
         {
@@ -31,14 +34,38 @@ namespace ModelosTP
             cantidadCajas.Enabled = false;
             cantidadTerminales.Enabled = false;
             horasSimulacion.Enabled = false;
+            int numeroEvento = 0;
 
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < cantidadCajas.Value; i++)
             {
-                richTextBox1.Text = richTextBox1.Text + generarXNormal(7.08, 2.78, 0.14, 0, 14).ToString() + "\n";
+                cajas.Add(new Caja());
             }
 
-            /*Evento ev = new Evento();
-            ev.Cliente = planificarCliente();
+            for (int i = 0; i < cantidadTerminales.Value; i++)
+            {
+                terminales.Add(new Caja());
+            }
+
+            planificarLlegadaCliente();
+            while (TiempoSimulacion <= (horasSimulacion.Value * 60))
+            {
+                Evento ev = eventos[numeroEvento];
+                numeroEvento++;
+                switch (ev.TipoEvento)
+                {
+                    case 0:
+                        llegaCliente(ev.HoraEjecucionAbsoluta);
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            /*
             eventos.Add(ev);
             while (TiempoSimulacion < Int32.Parse(horasSimulacion.Value.ToString()))
             {
@@ -57,12 +84,104 @@ namespace ModelosTP
             }*/
         }
 
-        private Cliente planificarCliente()
+        private void planificarLlegadaCliente()
         {
-            int hora = TiempoSimulacion + generarXNormal(7.08, 2.78, 0.14, 0, 14);
-            Cliente cliente = new Cliente();
-            cliente.HoraLlegada = hora;
-            return new Cliente();
+            Evento e = new Evento();
+            e.HoraEjecucionAbsoluta = TiempoSimulacion + generarXNormal(7.08, 2.78, 0.14, 0, 14);
+            e.TipoEvento = 0;
+            eventos.Add(e);
+        }
+
+        private void llegaCliente(int tiempo)
+        {
+            TiempoSimulacion = tiempo;
+            planificarLlegadaCliente();
+            Cliente c = new Cliente();
+            c.HoraLlegadaAbsoluta = TiempoSimulacion;
+            int decision = r.Next(0, 100);
+            if (decision <= 30) //se va a la caja directamente
+            {
+                Caja caj = cajaConMenorFila();
+                caj.ColaClientes.Add(c);
+            }
+            else //pasa primero por las terminales
+            {
+                colaTerminales++;
+                terminalLibre();
+            }
+        }
+
+        private void terminalLibre()
+        {
+            for(int i = 0; i < terminales.Count; i++)
+            {
+                Terminal t = terminales[i];
+                if (t.Estado == 0)
+                {
+                    t.Estado = 1;
+                    terminales[i] = t;
+                    colaTerminales--;
+                    planificarUsoTerminal();
+                }
+            }
+        }
+
+        private Caja cajaConMenorFila()
+        {
+            Caja caja;
+            int fila = 10000000;
+            foreach (Caja c in cajas)
+            {
+                if (c.ColaClientes.Count < fila)
+                {
+                    fila = c.ColaClientes.Count;
+                    caja = c;
+                }
+            }
+            return caja;
+        }
+
+        /// <summary>
+        /// Cuándo termina de usarse una terminal
+        /// </summary>
+        private void planificarUsoTerminal()
+        {
+            Evento e = new Evento();
+            e.HoraEjecucionAbsoluta = TiempoSimulacion + generarXUniforme(0.09);
+            e.TipoEvento = 1;
+            eventos.Add(e);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tiempo"></param>
+        private void terminarUsarTerminal(int tiempo)
+        {
+            TiempoSimulacion = tiempo;
+            if (colaTerminales != 0)
+            {
+                //Representa el cambio de que sale un cliente de la cola para usar una terminal
+                colaTerminales--;
+            }
+            else
+            {
+                for (int i = 0; i < terminales.Count; i++)
+                {
+                    Terminal t = terminales[i];
+                    if (t.Estado == 1)
+                    {
+                        t.Estado = 0;
+                        terminales[i] = t;
+                        break;
+                    }
+                }
+
+            }
+            Caja c = cajaConMenorFila();
+            Cliente cl = new Cliente();
+            cl.HoraLlegadaAbsoluta = TiempoSimulacion; //Hora a la que llega a esperar a la fila
+            c.ColaClientes.Add(cl);
         }
 
         private void bDetener_Click(object sender, EventArgs e)
@@ -78,7 +197,6 @@ namespace ModelosTP
             int x = 0;
             do
             {
-                
                 double numerador, denominador, numeradorExponente, 
                     denominadorExponente, exponente, probabilidadNormalDeX, 
                     probDivModa, r1, r2, ex;
@@ -112,13 +230,15 @@ namespace ModelosTP
             int x = 0;
             do
             {
-                double r1, r2, probabilidadX, probDivModa;
+                double r1, r2, probabilidadX, probDivModa, ex;
                 r1 = r.Next(0, 100);
                 r1 /= 100;
-                x = Int32.Parse((11 * r1).ToString());
+                ex = 11 * r1;
+                ex = Math.Round(ex, 0);
+                x = Int32.Parse(ex.ToString());
                 r2 = r.Next(0, 100);
                 r2 /= 100;
-                probabilidadX = x / 11;
+                probabilidadX = ex / 11;
                 probDivModa = probabilidadX / moda;
                 if (probDivModa > r2)
                 {

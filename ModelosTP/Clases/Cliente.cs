@@ -7,12 +7,18 @@ namespace ModelosTP.Clases
 {
     class Cliente
     {
-        int horaLlegada;
-
-        public int HoraLlegada
+        int horaLlegadaAbsoluta;//, idCliente;
+        
+        public int HoraLlegadaAbsoluta
         {
-            get { return horaLlegada; }
-            set { horaLlegada = value; }
+            get { return horaLlegadaAbsoluta; }
+            set { horaLlegadaAbsoluta = value; }
         }
+
+        //public int IdCliente
+        //{
+        //    get { return idCliente; }
+        //    set { idCliente = value; }
+        //}
     }
 }

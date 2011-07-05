@@ -44,7 +44,6 @@
             this.cantidadTerminales = new System.Windows.Forms.NumericUpDown();
             this.cantidadCajas = new System.Windows.Forms.NumericUpDown();
             this.horasSimulacion = new System.Windows.Forms.NumericUpDown();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cantidadTerminales)).BeginInit();
@@ -189,6 +188,11 @@
             this.cantidadTerminales.Name = "cantidadTerminales";
             this.cantidadTerminales.Size = new System.Drawing.Size(76, 20);
             this.cantidadTerminales.TabIndex = 0;
+            this.cantidadTerminales.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             // 
             // cantidadCajas
             // 
@@ -196,6 +200,11 @@
             this.cantidadCajas.Name = "cantidadCajas";
             this.cantidadCajas.Size = new System.Drawing.Size(76, 20);
             this.cantidadCajas.TabIndex = 1;
+            this.cantidadCajas.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             // 
             // horasSimulacion
             // 
@@ -203,21 +212,17 @@
             this.horasSimulacion.Name = "horasSimulacion";
             this.horasSimulacion.Size = new System.Drawing.Size(76, 20);
             this.horasSimulacion.TabIndex = 5;
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(32, 184);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(279, 254);
-            this.richTextBox1.TabIndex = 7;
-            this.richTextBox1.Text = "";
+            this.horasSimulacion.Value = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(485, 461);
-            this.Controls.Add(this.richTextBox1);
+            this.ClientSize = new System.Drawing.Size(485, 206);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.bDetener);
@@ -251,7 +256,6 @@
         private System.Windows.Forms.Label rTiempoAcumuladoOcioso;
         private System.Windows.Forms.Label rTotalClientes;
         private System.Windows.Forms.Label rTiempoTramiteCliente;
-        private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.NumericUpDown cantidadCajas;
         private System.Windows.Forms.NumericUpDown cantidadTerminales;
     }

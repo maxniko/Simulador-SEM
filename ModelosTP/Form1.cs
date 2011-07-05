@@ -18,8 +18,8 @@ namespace ModelosTP
         private int TiempoSimulacion;
         private int maximaColaTerminales = 0;
         private int TiempoMaxColaTerminales = 0;
-        private int TiempoMaxAtencCaja = 0;
-        private int TiempoPromedioAtencCaja = 0;
+        private int TiempoMaximoEsperaEnColaCaja = 0;
+        private int TiempoTotalEsperaEnColaCaja = 0;
         private int TiempoPermanenciaCliente = 0;
         private int terminalesLibres = 1;
         private int totalClientesAtendidos = 0;
@@ -29,6 +29,7 @@ namespace ModelosTP
         private List<Terminal> terminales = new List<Terminal>();
         private int colaTerminales = 0;
         private int clientesEnBanco = 0;
+        private int numeroEvento = 0;
         #endregion
 
         public Form1()
@@ -38,11 +39,9 @@ namespace ModelosTP
 
         private void bComenzar_Click(object sender, EventArgs e)
         {
+            bDetener_Click(sender, e);
             generarLog();
-            cantidadCajas.Enabled = false;
-            cantidadTerminales.Enabled = false;
-            horasSimulacion.Enabled = false;
-            int numeroEvento = 0;
+            numeroEvento = 0;
 
             for (int i = 0; i < cantidadCajas.Value; i++)
             {
@@ -80,8 +79,8 @@ namespace ModelosTP
                 }
             }
             rColaMaximaTerminales.Text = "Tamaño máximo de la cola en terminales: " + maximaColaTerminales;
-            rTiempoEsperaPromedioCajas.Text = "Tiempo de espera promedio en la cola de las cajas: " + (TiempoPromedioAtencCaja / totalClientesAtendidos);
-            rTiempoEsperaMaximoCajas.Text = "Tiempo de espera máximo en la cola de las cajas: " + TiempoMaxAtencCaja;
+            rTiempoEsperaPromedioCajas.Text = "Tiempo de espera promedio en la cola de las cajas: " + (TiempoTotalEsperaEnColaCaja / totalClientesAtendidos);
+            rTiempoEsperaMaximoCajas.Text = "Tiempo de espera máximo en la cola de las cajas: " + TiempoMaximoEsperaEnColaCaja;
             rTiempoAcumuladoOcioso.Text = "Tiempo acumulado de cajeros ociosos: " + tiempoOcioso;
             rTiempoTramiteCliente.Text = "Tiempo promedio para trámites de un cliente: " + (TiempoPermanenciaCliente/totalClientesAtendidos).ToString();
             rTotalClientes.Text = "Total de clientes atendidos: " + totalClientesAtendidos;
@@ -125,21 +124,34 @@ namespace ModelosTP
             }
         }
 
-        private void ocuparCaja(Evento e)
+        /// <summary>
+        /// Un cliente comenzará a ser atendido.
+        /// </summary>
+        /// <param name="e"></param>
+        private Evento ocuparCaja(Evento e)
         {
             if (cajas[e.IdCaja].Estado == 0)
             {
                 cajas[e.IdCaja].Estado = 1;
-                tiempoOcioso += TiempoSimulacion - cajas[e.IdCaja].TiempoInactivo;
+                tiempoOcioso += (TiempoSimulacion - cajas[e.IdCaja].TiempoInactivo);
                 planificarTiempoCaja(e.IdCaja, e.Cliente);
 
                 TiempoSimulacion = e.HoraEjecucionAbsoluta;
                 int aux = TiempoSimulacion - cajas[e.IdCaja].ColaClientes[0].TiempoEsperaCaja;
-                if (aux > TiempoMaxAtencCaja)
+                if (aux > TiempoMaximoEsperaEnColaCaja)
                 {
-                    TiempoMaxAtencCaja = aux;
+                    TiempoMaximoEsperaEnColaCaja = aux;
                 }
+                e.TipoEvento = 4;
+                loguear(e);
             }
+            else
+            {
+                e.Cliente.TiempoEsperaCaja = TiempoSimulacion;
+                e.TipoEvento = 5;
+                loguear(e);
+            }
+            return e;
         }
 
         private void terminarAtencCaja(Evento e)
@@ -149,10 +161,15 @@ namespace ModelosTP
                 if (cajas[e.IdCaja].ColaClientes.Count > 1)
                 {
                     planificarTiempoCaja(e.IdCaja, cajas[e.IdCaja].ColaClientes[1]);
+                    Evento ev = e;
+                    ev.Cliente = cajas[e.IdCaja].ColaClientes[1];
+                    ev.TipoEvento = 4;
+                    loguear(ev);
                 }
                 else
                 {
                     cajas[e.IdCaja].Estado = 0;
+                    cajas[e.IdCaja].TiempoInactivo = TiempoSimulacion;
                 }
                 TiempoPermanenciaCliente = TiempoPermanenciaCliente + (TiempoSimulacion - cajas[e.IdCaja].ColaClientes[0].HoraLlegada);
                 totalClientesAtendidos++;
@@ -186,6 +203,8 @@ namespace ModelosTP
                     maximaColaTerminales = colaTerminales;
                 }
             }
+            e.TipoEvento = 3;
+            loguear(e);
         }
 
         /// <summary>
@@ -208,10 +227,6 @@ namespace ModelosTP
             e.Cliente.TiempoEsperaCaja = TiempoSimulacion;
             e.IdCaja = cajaMenor;
             cajas[cajaMenor].ColaClientes.Add(e.Cliente);
-            if (fila == 0)
-            {
-                tiempoOcioso += TiempoSimulacion - cajas[cajaMenor].TiempoInactivo;               
-            }
             ocuparCaja(e);
         }
 
@@ -267,15 +282,34 @@ namespace ModelosTP
         }
 
         /// <summary>
-        /// Detiene la simulación
+        /// Limpia todas las variables. Vuelve todo a cero
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void bDetener_Click(object sender, EventArgs e)
         {
-            cantidadCajas.Enabled = true;
-            cantidadTerminales.Enabled = true;
-            horasSimulacion.Enabled = true;
+            TiempoSimulacion = 0;
+            maximaColaTerminales = 0;
+            TiempoMaxColaTerminales = 0;
+            TiempoMaximoEsperaEnColaCaja = 0;
+            TiempoTotalEsperaEnColaCaja = 0;
+            TiempoPermanenciaCliente = 0;
+            terminalesLibres = 1;
+            totalClientesAtendidos = 0;
+            tiempoOcioso = 0;
+            eventos.Clear();
+            cajas.Clear();
+            terminales.Clear();
+            colaTerminales = 0;
+            clientesEnBanco = 0;
+            numeroEvento = 0;
+            
+            rColaMaximaTerminales.Text = "Tamaño máximo de la cola en terminales: 0";
+            rTiempoEsperaPromedioCajas.Text = "Tiempo de espera promedio en la cola de las cajas: 0";
+            rTiempoEsperaMaximoCajas.Text = "Tiempo de espera máximo en la cola de las cajas: 0";
+            rTiempoAcumuladoOcioso.Text = "Tiempo acumulado de cajeros ociosos: 0";
+            rTiempoTramiteCliente.Text = "Tiempo promedio para trámites de un cliente: 0";
+            rTotalClientes.Text = "Total de clientes atendidos: 0";
         }
 
         /// <summary>
@@ -384,37 +418,63 @@ namespace ModelosTP
         /// <param name="e">El evento que se desea loguear</param>
         private void loguear(Evento e)
         {
+            string fileName = "log.txt"; //archivo log.txt
+            //nombre del archivo, establece el cursor al final de la linea, tipo de acceso
+            FileStream stream = new FileStream(fileName, FileMode.Append, FileAccess.Write);
+            StreamWriter writer = new StreamWriter(stream); //crea la accion
             string hora = Math.Ceiling(Double.Parse((e.HoraEjecucionAbsoluta / 60).ToString())).ToString() + ":" + (e.HoraEjecucionAbsoluta % 60).ToString();
             string entrada = hora + " => ";
             switch (e.TipoEvento)
             {
                 case 0:
-                    entrada = entrada + "Llega un cliente al sistema => Cliente: " + e.Cliente.IdCliente;
+                    writer.WriteLine(entrada += "Llega un cliente al sistema");
+                    writer.WriteLine("\t\t:" + e.TipoEvento + ": => Tipo de evento");
+                    writer.WriteLine("\t\t:" + e.Cliente.IdCliente + ": => Cliente");
+                    writer.WriteLine("\t\t:" + e.IdCaja + ": => Caja");
+                    writer.WriteLine();
                     break;
                 case 1:
-                    entrada = entrada + "Un cliente termina de usar una terminal => Cliente: " + e.Cliente.IdCliente;
+                    writer.WriteLine(entrada += "Un cliente termina de usar una terminal");
+                    writer.WriteLine("\t\t:" + e.TipoEvento + ": => Tipo de evento");
+                    writer.WriteLine("\t\t:" + e.Cliente.IdCliente + ": => Cliente");
+                    writer.WriteLine("\t\t:" + e.IdCaja + ": => Caja");
+                    writer.WriteLine();
                     break;
                 case 2:
-                    entrada = entrada + "Un cliente termina de ser atendido por la caja (y se va) => Cliente: " + e.Cliente.IdCliente;
+                    writer.WriteLine(entrada += "Un cliente termina de ser atendido por la caja (y se va)");
+                    writer.WriteLine("\t\t:" + e.TipoEvento + ": => Tipo de evento");
+                    writer.WriteLine("\t\t:" + e.Cliente.IdCliente + ": => Cliente");
+                    writer.WriteLine("\t\t:" + e.IdCaja + ": => Caja");
+                    writer.WriteLine();
+                    break;
+                case 3:
+                    writer.WriteLine(entrada += "Un cliente comienza a usar una terminal");
+                    writer.WriteLine("\t\t:" + e.TipoEvento + ": => Tipo de evento");
+                    writer.WriteLine("\t\t:" + e.Cliente.IdCliente + ": => Cliente");
+                    writer.WriteLine("\t\t:" + e.IdCaja + ": => Caja");
+                    writer.WriteLine();
+                    break;
+                case 4:
+                    writer.WriteLine(entrada += "Un cliente comienza a ser atendido");
+                    writer.WriteLine("\t\t:" + e.TipoEvento + ": => Tipo de evento");
+                    writer.WriteLine("\t\t:" + e.Cliente.IdCliente + ": => Cliente");
+                    writer.WriteLine("\t\t:" + e.IdCaja + ": => Caja");
+                    writer.WriteLine();
+                    break;
+                case 5:
+                    writer.WriteLine(entrada += "Un cliente comienza a esperar en la cola para una caja");
+                    writer.WriteLine("\t\t:" + e.TipoEvento + ": => Tipo de evento");
+                    writer.WriteLine("\t\t:" + e.Cliente.IdCliente + ": => Cliente");
+                    writer.WriteLine("\t\t:" + e.IdCaja + ": => Caja");
+                    writer.WriteLine();
                     break;
                 default:
-                    entrada = entrada + "Evento irreconocible => Cliente: " + e.Cliente.IdCliente;
+                    writer.WriteLine(entrada += "Evento irreconocible");
+                    writer.WriteLine("\t\t:" + e.TipoEvento + ": => Tipo de evento");
+                    writer.WriteLine("\t\t:" + e.Cliente.IdCliente + ": => Cliente");
+                    writer.WriteLine("\t\t:" + e.IdCaja + ": => Caja");
+                    writer.WriteLine();
                     break;
-            }
-            
-            string fileName = "log.txt"; //archivo log.txt
-
-            //nombre del archivo, establece el cursor al final de la linea, tipo de acceso
-            FileStream stream = new FileStream(fileName, FileMode.Append, FileAccess.Write);
-            StreamWriter writer = new StreamWriter(stream); //crea la accion
-            int cont = 0; //contador de cuantas columnas hay creadas
-            writer.WriteLine();//escribe una lina
-            writer.Write(entrada + "\t"); //escribe el dato junto con una tabulacion
-            cont++; //aumenta el contador
-            if (cont > 9)//luego de 10 columnas hace un "enter"
-            {
-                cont = 0;
-                writer.WriteLine();
             }
             writer.Close();//cierra la escritura del 
         }

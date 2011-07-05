@@ -67,7 +67,7 @@
             this.bDetener.Name = "bDetener";
             this.bDetener.Size = new System.Drawing.Size(75, 23);
             this.bDetener.TabIndex = 1;
-            this.bDetener.Text = "Detener!";
+            this.bDetener.Text = "Limpiar";
             this.bDetener.UseVisualStyleBackColor = true;
             this.bDetener.Click += new System.EventHandler(this.bDetener_Click);
             // 
@@ -229,7 +229,6 @@
             this.Controls.Add(this.bComenzar);
             this.Name = "Form1";
             this.Text = "Simulador SEM";
-            //this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

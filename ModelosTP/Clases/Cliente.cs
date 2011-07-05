@@ -8,7 +8,7 @@ namespace ModelosTP.Clases
     class Cliente
     {
         int horaLlegada;
-        int tiempoEsperaCaja;
+        int tiempoEsperaCaja = 0;
         int idCliente;
 
         public Cliente()

@@ -11,7 +11,7 @@ namespace ModelosTP.Clases
         private int tipoEvento = 0;
         //private int idCliente = 0;
         //private int tipoCaja = 0;
-        private Cliente cliente = null;
+        private Cliente cliente = new Cliente(-1);        
         private int idCaja = 0;
         private Terminal terminal = null;
 
@@ -54,6 +54,9 @@ namespace ModelosTP.Clases
             set { cliente = value; }
         }
 
+        /// <summary>
+        /// Corresponde al index de la lista de cajas
+        /// </summary>
         public int IdCaja
         {
             get { return idCaja; }

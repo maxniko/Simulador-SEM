@@ -8,6 +8,7 @@ namespace ModelosTP.Clases
     class Terminal
     {
         private int estado = 0;
+        Cliente c;
 
         /// <summary>
         /// 0 = libre.
@@ -17,6 +18,13 @@ namespace ModelosTP.Clases
         {
             get { return estado; }
             set { estado = value; }
+        }
+
+        public Cliente Cliente
+        {
+            get { return c; }
+            set { c = value; }
+
         }
     }
 }

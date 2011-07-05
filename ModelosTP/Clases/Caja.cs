@@ -9,6 +9,17 @@ namespace ModelosTP.Clases
     {
         private List<Cliente> colaClientes = new List<Cliente>();
         int tiempoInactivo = 0;
+        int estado;
+
+        /// <summary>
+        /// 0 = Ocioso
+        /// 1 = Ocupada
+        /// </summary>
+        public int Estado
+        {
+            get { return estado; }
+            set { estado = value; }
+        }
 
         public List<Cliente> ColaClientes
         {

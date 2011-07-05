@@ -2,95 +2,65 @@
 
 
 
-0:3 => Llega un cliente al sistema => Cliente: 0	
-0:5 => Llega un cliente al sistema => Cliente: 1	
-0:8 => Un cliente termina de usar una terminal => Cliente: 0	
-0:9 => Un cliente termina de usar una terminal => Cliente: 0	
-0:9 => Un cliente termina de usar una terminal => Cliente: 0	
-0:10 => Llega un cliente al sistema => Cliente: 2	
-0:11 => Un cliente termina de usar una terminal => Cliente: 2	
-0:11 => Un cliente termina de usar una terminal => Cliente: 2	
-0:11 => Un cliente termina de usar una terminal => Cliente: 0	
-0:13 => Llega un cliente al sistema => Cliente: 3	
-0:13 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-0:13 => Un cliente termina de usar una terminal => Cliente: 0	
-0:14 => Llega un cliente al sistema => Cliente: 4	
-0:15 => Un cliente termina de usar una terminal => Cliente: 3	
-0:15 => Un cliente termina de usar una terminal => Cliente: 3	
-0:16 => Un cliente termina de usar una terminal => Cliente: 2	
-0:17 => Un cliente termina de usar una terminal => Cliente: 3	
-0:23 => Llega un cliente al sistema => Cliente: 5	
-0:23 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-0:26 => Un cliente termina de usar una terminal => Cliente: 5	
-0:27 => Un cliente termina de usar una terminal => Cliente: 5	
-0:29 => Llega un cliente al sistema => Cliente: 6	
-0:30 => Un cliente termina de usar una terminal => Cliente: 6	
-0:31 => Un cliente termina de usar una terminal => Cliente: 5	
-0:32 => Un cliente termina de usar una terminal => Cliente: 5	
-0:32 => Un cliente termina de usar una terminal => Cliente: 5	
-0:35 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-0:37 => Llega un cliente al sistema => Cliente: 7	
-0:39 => Un cliente termina de usar una terminal => Cliente: 6	
-0:40 => Un cliente termina de usar una terminal => Cliente: 7	
-0:41 => Un cliente termina de usar una terminal => Cliente: 7	
-0:42 => Un cliente termina de usar una terminal => Cliente: 7	
-0:43 => Un cliente termina de usar una terminal => Cliente: 7	
-0:43 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-0:44 => Llega un cliente al sistema => Cliente: 8	
-0:46 => Un cliente termina de usar una terminal => Cliente: 8	
-0:47 => Un cliente termina de usar una terminal => Cliente: 8	
-0:51 => Un cliente termina de usar una terminal => Cliente: 8	
-0:52 => Un cliente termina de usar una terminal => Cliente: 8	
-0:52 => Un cliente termina de usar una terminal => Cliente: 8	
-0:54 => Llega un cliente al sistema => Cliente: 9	
-0:57 => Llega un cliente al sistema => Cliente: 10	
-0:57 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-1:3 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-1:4 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-1:8 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-1:8 => Llega un cliente al sistema => Cliente: 11	
-1:11 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-1:15 => Llega un cliente al sistema => Cliente: 12	
-1:20 => Un cliente termina de usar una terminal => Cliente: 12	
-1:21 => Un cliente termina de usar una terminal => Cliente: 12	
-1:21 => Un cliente termina de usar una terminal => Cliente: 12	
-1:22 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-1:23 => Un cliente termina de usar una terminal => Cliente: 12	
-1:23 => Llega un cliente al sistema => Cliente: 13	
-1:24 => Un cliente termina de usar una terminal => Cliente: 12	
-1:27 => Llega un cliente al sistema => Cliente: 14	
-1:30 => Un cliente termina de usar una terminal => Cliente: 14	
-1:30 => Llega un cliente al sistema => Cliente: 15	
-1:31 => Un cliente termina de usar una terminal => Cliente: 14	
-1:32 => Un cliente termina de usar una terminal => Cliente: 15	
-1:32 => Un cliente termina de usar una terminal => Cliente: 14	
-1:33 => Un cliente termina de usar una terminal => Cliente: 14	
-1:34 => Un cliente termina de usar una terminal => Cliente: 14	
-1:35 => Llega un cliente al sistema => Cliente: 16	
-1:35 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-1:42 => Llega un cliente al sistema => Cliente: 17	
-1:45 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-1:48 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-1:49 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-1:49 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-1:52 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-1:52 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-1:52 => Llega un cliente al sistema => Cliente: 18	
-1:54 => Un cliente termina de usar una terminal => Cliente: 18	
-1:54 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-1:55 => Llega un cliente al sistema => Cliente: 19	
-1:58 => Un cliente termina de usar una terminal => Cliente: 18	
-1:58 => Un cliente termina de usar una terminal => Cliente: 18	
-1:59 => Un cliente termina de usar una terminal => Cliente: 18	
-2:3 => Un cliente termina de usar una terminal => Cliente: 18	
-2:4 => Llega un cliente al sistema => Cliente: 20	
-2:4 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-2:6 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-2:8 => Llega un cliente al sistema => Cliente: 21	
-2:9 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-2:14 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-2:19 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-2:19 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-2:19 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-2:19 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
-2:19 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
+0:7 => Llega un cliente al sistema => Cliente: 0	
+0:11 => Llega un cliente al sistema => Cliente: 1	
+0:15 => Llega un cliente al sistema => Cliente: 2	
+0:16 => Un cliente termina de usar una terminal => Cliente: 0	
+0:24 => Llega un cliente al sistema => Cliente: 3	
+0:29 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 0	
+0:30 => Un cliente termina de usar una terminal => Cliente: 3	
+0:31 => Llega un cliente al sistema => Cliente: 4	
+0:34 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 3	
+0:38 => Un cliente termina de usar una terminal => Cliente: 4	
+0:41 => Llega un cliente al sistema => Cliente: 5	
+0:48 => Llega un cliente al sistema => Cliente: 6	
+0:48 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 4	
+0:53 => Llega un cliente al sistema => Cliente: 7	
+0:54 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 5	
+1:0 => Llega un cliente al sistema => Cliente: 8	
+1:2 => Un cliente termina de usar una terminal => Cliente: 7	
+1:4 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 6	
+1:6 => Llega un cliente al sistema => Cliente: 9	
+1:9 => Un cliente termina de usar una terminal => Cliente: 9	
+1:11 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 7	
+1:12 => Llega un cliente al sistema => Cliente: 10	
+1:16 => Llega un cliente al sistema => Cliente: 11	
+1:18 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 9	
+1:21 => Un cliente termina de usar una terminal => Cliente: 10	
+1:22 => Llega un cliente al sistema => Cliente: 12	
+1:24 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 10	
+1:31 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 12	
+1:31 => Llega un cliente al sistema => Cliente: 13	
+1:36 => Llega un cliente al sistema => Cliente: 14	
+1:39 => Un cliente termina de usar una terminal => Cliente: 13	
+1:45 => Llega un cliente al sistema => Cliente: 15	
+1:47 => Un cliente termina de usar una terminal => Cliente: 15	
+1:47 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 14	
+1:49 => Llega un cliente al sistema => Cliente: 16	
+1:53 => Llega un cliente al sistema => Cliente: 17	
+1:58 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 13	
+2:0 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 15	
+2:0 => Llega un cliente al sistema => Cliente: 18	
+2:5 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 16	
+2:5 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 16	
+2:7 => Llega un cliente al sistema => Cliente: 19	
+2:11 => Llega un cliente al sistema => Cliente: 20	
+2:15 => Llega un cliente al sistema => Cliente: 21	
+2:16 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 18	
+2:19 => Un cliente termina de usar una terminal => Cliente: 20	
+2:20 => Llega un cliente al sistema => Cliente: 22	
+2:25 => Llega un cliente al sistema => Cliente: 23	
+2:27 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 19	
+2:28 => Llega un cliente al sistema => Cliente: 24	
+2:30 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 20	
+2:31 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 22	
+2:36 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 23	
+2:37 => Llega un cliente al sistema => Cliente: 25	
+2:39 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 24	
+2:40 => Un cliente termina de usar una terminal => Cliente: 25	
+2:42 => Llega un cliente al sistema => Cliente: 26	
+2:49 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 25	
+2:49 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 25	
+2:50 => Llega un cliente al sistema => Cliente: 27	
+3:1 => Un cliente termina de ser atendido por la caja (y se va) => Cliente: 27	
+3:1 => Llega un cliente al sistema => Cliente: 28	

@@ -7,33 +7,33 @@ namespace ModelosTP.Clases
 {
     class Evento
     {
-        private int horaEjecucion = 0;
-        private Cliente cliente = null;
-        private Caja caja = null;
+        private int horaEjecucionAbsoluta = 0;
+        //private Cliente cliente = null;
+        //private Caja caja = null;
         private int tipoEvento = 0;
 
-        public int HoraEjecucion
+        public int HoraEjecucionAbsoluta
         {
-            get { return horaEjecucion; }
-            set { horaEjecucion = value; }
+            get { return horaEjecucionAbsoluta; }
+            set { horaEjecucionAbsoluta = value; }
         }
 
-        public Cliente Cliente
-        {
-            get { return cliente; }
-            set { cliente = value; }
-        }
+        //public Cliente Cliente
+        //{
+        //    get { return cliente; }
+        //    set { cliente = value; }
+        //}
 
-        public Caja Caja
-        {
-            get { return caja; }
-            set { caja = value; }
-        }
+        //public Caja Caja
+        //{
+        //    get { return caja; }
+        //    set { caja = value; }
+        //}
 
         public int TipoEvento
         {
             get { return tipoEvento; }
-            set { caja = value; }
+            set { tipoEvento = value; }
         }
     }
 }

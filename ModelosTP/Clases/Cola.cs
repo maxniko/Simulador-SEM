@@ -10,9 +10,9 @@ namespace ModelosTP.Clases
         private List<Cliente> listaCola;
         private int nroCaja;
 
-        public List<Cliente> ListaCola
+        /*public List<Cliente> ListaCola
         {
 
-        }
+        }*/
     }
 }

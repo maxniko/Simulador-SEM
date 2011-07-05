@@ -17,8 +17,11 @@ namespace ModelosTP
         private int maximaColaTerminales = 0;
         private int TiempoMaxColaTerminales = 0;
         private int TiempoMaxAtencCaja = 0;
+        private int TiempoPromedioAtencCaja = 0;
+        private int TiempoPermanenciaCliente = 0;
         private int terminalesLibres = 1;
         private int totalClientesAtendidos = 0;
+        private int tiempoOcioso = 0;
         private List<Evento> eventos = new List<Evento>();
         private List<Caja> cajas = new List<Caja>();
         private List<Terminal> terminales = new List<Terminal>();
@@ -43,7 +46,7 @@ namespace ModelosTP
 
             for (int i = 0; i < cantidadTerminales.Value; i++)
             {
-                terminales.Add(new Caja());
+                terminales.Add(new Terminal());
             }
 
             planificarLlegadaCliente();
@@ -57,14 +60,17 @@ namespace ModelosTP
                         llegaCliente(ev.HoraEjecucionAbsoluta);
                         break;
                     case 1:
+                        atenderCaja(ev);
                         break;
                     case 2:
+                        terminarAtencCaja(ev);
                         break;
                     default:
                         break;
                 }
             }
-
+            rTiempoEsperaPromedioCajas.Text = "Tiempo de espera promedio en la cola de las cajas: " + (TiempoPromedioAtencCaja / totalClientesAtendidos);
+            rTiempoEsperaMaximoCajas.Text = "Tiempo de espera máximo en la cola de las cajas: " + TiempoMaxAtencCaja;
             /*
             eventos.Add(ev);
             while (TiempoSimulacion < Int32.Parse(horasSimulacion.Value.ToString()))
@@ -89,7 +95,7 @@ namespace ModelosTP
             Evento e = new Evento();
             e.HoraEjecucionAbsoluta = TiempoSimulacion + generarXNormal(7.08, 2.78, 0.14, 0, 14);
             e.TipoEvento = 0;
-            eventos.Add(e);
+            insertarEvento(e);
         }
 
         private void llegaCliente(int tiempo)
@@ -97,18 +103,39 @@ namespace ModelosTP
             TiempoSimulacion = tiempo;
             planificarLlegadaCliente();
             Cliente c = new Cliente();
-            c.HoraLlegadaAbsoluta = TiempoSimulacion;
+            c.HoraLlegada = TiempoSimulacion;
             int decision = r.Next(0, 100);
             if (decision <= 30) //se va a la caja directamente
             {
-                Caja caj = cajaConMenorFila();
-                caj.ColaClientes.Add(c);
+                //Caja caj = cajaConMenorFila();
+                //caj.ColaClientes.Add(c);
+                insertarClienteEnColaMasChica(c);
             }
             else //pasa primero por las terminales
             {
                 colaTerminales++;
                 terminalLibre();
             }
+        }
+
+        private void atenderCaja(Evento e)
+        {
+            TiempoSimulacion = e.HoraEjecucionAbsoluta;
+            tiempoOcioso = tiempoOcioso + (TiempoSimulacion - cajas[e.IdCaja].TiempoInactivo);
+            int aux = TiempoSimulacion - cajas[e.IdCaja].ColaClientes[0].TiempoEsperaCaja;
+            if (aux > TiempoMaxAtencCaja)
+            {
+                TiempoMaxAtencCaja = aux;
+            }
+            planificarTiempoCaja(e.IdCaja);
+        }
+
+        private void terminarAtencCaja(Evento e)
+        {
+            cajas[e.IdCaja].TiempoInactivo = TiempoSimulacion;
+            TiempoPermanenciaCliente = TiempoPermanenciaCliente + (TiempoSimulacion - cajas[e.IdCaja].ColaClientes[0].HoraLlegada);
+            totalClientesAtendidos++;
+            cajas[e.IdCaja].ColaClientes.RemoveAt(0);
         }
 
         private void terminalLibre()
@@ -121,14 +148,14 @@ namespace ModelosTP
                     t.Estado = 1;
                     terminales[i] = t;
                     colaTerminales--;
-                    planificarUsoTerminal();
+                    planificarUsoTerminal(t);
                 }
             }
         }
 
         private Caja cajaConMenorFila()
         {
-            Caja caja;
+            Caja caja = new Caja();
             int fila = 10000000;
             foreach (Caja c in cajas)
             {
@@ -141,15 +168,47 @@ namespace ModelosTP
             return caja;
         }
 
+        private void insertarClienteEnColaMasChica(Cliente cliente)
+        {
+            int fila = 10000000;
+            int cajaMenor = 0;
+            for (int x = 0; x < cajas.Count; x++)
+            {
+                Caja c = cajas[x];
+                if (c.ColaClientes.Count < fila)
+                {
+                    fila = c.ColaClientes.Count;
+                    cajaMenor = x;
+                }
+            }
+            cliente.TiempoEsperaCaja = TiempoSimulacion;
+            cajas[cajaMenor].ColaClientes.Add(cliente);
+            if (fila == 0)
+            {
+                tiempoOcioso = TiempoSimulacion - cajas[cajaMenor].TiempoInactivo;
+                planificarTiempoCaja(cajaMenor);
+            }
+        }
+
+        private void planificarTiempoCaja(int nroCaja)
+        {
+            Evento e = new Evento();
+            e.HoraEjecucionAbsoluta = TiempoSimulacion + generarXNormal(9.9, 3.56, 0.11, 1, 18);
+            e.TipoEvento = 2; //salida de la caja
+            e.IdCaja = nroCaja;
+            insertarEvento(e);
+        }
+
+
         /// <summary>
         /// Cuándo termina de usarse una terminal
         /// </summary>
-        private void planificarUsoTerminal()
+        private void planificarUsoTerminal(Terminal t)
         {
             Evento e = new Evento();
             e.HoraEjecucionAbsoluta = TiempoSimulacion + generarXUniforme(0.09);
-            e.TipoEvento = 1;
-            eventos.Add(e);
+            e.TipoEvento = 3;
+            insertarEvento(e);
         }
 
         /// <summary>
@@ -248,7 +307,7 @@ namespace ModelosTP
             return x;
         }
 
-        private void insertarEvento()
+        private void insertarEvento(Evento eNuevo)
         {
             bool ok = false;
             do
@@ -257,6 +316,16 @@ namespace ModelosTP
                 if (eventos.Count > 0)
                 {
                     Evento e = eventos[indice];
+                    if (eNuevo.HoraEjecucionAbsoluta > e.HoraEjecucionAbsoluta)
+                    {
+                        eventos.Insert(indice + 1, eNuevo);
+                        ok = true;
+                    }
+                }
+                else
+                {
+                    eventos.Add(eNuevo);
+                    ok = true;
                 }
             } while (ok == false);
         }

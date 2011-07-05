@@ -10,9 +10,10 @@ namespace ModelosTP.Clases
         private int horaEjecucionAbsoluta = 0;
         private int tipoEvento = 0;
         //private int idCliente = 0;
-        private int tipoCaja = 0;
-        //private Cliente cliente = null;
-        //private Caja caja = null;
+        //private int tipoCaja = 0;
+        private Cliente cliente = null;
+        private int idCaja = 0;
+        private Terminal terminal = null;
 
         public int HoraEjecucionAbsoluta
         {
@@ -30,11 +31,11 @@ namespace ModelosTP.Clases
         /// 0 = terminal.
         /// 1 = caja.
         /// </summary>
-        public int TipoCaja
-        {
-            get { return tipoCaja; }
-            set { tipoCaja = value; }
-        }
+        //public int TipoCaja
+        //{
+            //get { return tipoCaja; }
+            //set { tipoCaja = value; }
+        //}
 
         /// <summary>
         /// 0 = llega cliente.
@@ -47,16 +48,22 @@ namespace ModelosTP.Clases
             set { tipoEvento = value; }
         }
 
-        //public Cliente Cliente
-        //{
-        //    get { return cliente; }
-        //    set { cliente = value; }
-        //}
+        public Cliente Cliente
+        {
+            get { return cliente; }
+            set { cliente = value; }
+        }
 
-        //public Caja Caja
-        //{
-        //    get { return caja; }
-        //    set { caja = value; }
-        //}
+        public int IdCaja
+        {
+            get { return idCaja; }
+            set { idCaja = value; }
+        }
+
+        public Terminal Terminal
+        {
+            get { return terminal; }
+            set { terminal = value; }
+        }
     }
 }

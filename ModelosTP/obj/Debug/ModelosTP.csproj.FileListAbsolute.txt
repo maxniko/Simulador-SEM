@@ -24,3 +24,9 @@ D:\Data\UAP\4º Sistemas\Modelos y simulaciones\ModelosTP\ModelosTP\obj\Debug\Mo
 D:\Data\UAP\4º Sistemas\Modelos y simulaciones\ModelosTP\ModelosTP\obj\Debug\ModelosTP.csproj.GenerateResource.Cache
 D:\Data\UAP\4º Sistemas\Modelos y simulaciones\ModelosTP\ModelosTP\bin\Debug\ModelosTP.exe
 D:\Data\UAP\4º Sistemas\Modelos y simulaciones\ModelosTP\ModelosTP\bin\Debug\ModelosTP.pdb
+D:\Silvio\UAP\7mo Cuatrimestre\Modelos y Simulaciones\GIT\Simulador-SEM\ModelosTP\obj\Debug\ResolveAssemblyReference.cache
+D:\Silvio\UAP\7mo Cuatrimestre\Modelos y Simulaciones\GIT\Simulador-SEM\ModelosTP\obj\Debug\ModelosTP.Form1.resources
+D:\Silvio\UAP\7mo Cuatrimestre\Modelos y Simulaciones\GIT\Simulador-SEM\ModelosTP\obj\Debug\ModelosTP.Properties.Resources.resources
+D:\Silvio\UAP\7mo Cuatrimestre\Modelos y Simulaciones\GIT\Simulador-SEM\ModelosTP\obj\Debug\ModelosTP.csproj.GenerateResource.Cache
+D:\Silvio\UAP\7mo Cuatrimestre\Modelos y Simulaciones\GIT\Simulador-SEM\ModelosTP\bin\Debug\ModelosTP.exe
+D:\Silvio\UAP\7mo Cuatrimestre\Modelos y Simulaciones\GIT\Simulador-SEM\ModelosTP\bin\Debug\ModelosTP.pdb

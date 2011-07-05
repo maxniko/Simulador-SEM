@@ -52,6 +52,7 @@
     <Compile Include="Clases\Cliente.cs" />
     <Compile Include="Clases\Cola.cs" />
     <Compile Include="Clases\Evento.cs" />
+    <Compile Include="Clases\Terminal.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

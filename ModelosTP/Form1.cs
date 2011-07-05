@@ -71,25 +71,11 @@ namespace ModelosTP
             }
             rTiempoEsperaPromedioCajas.Text = "Tiempo de espera promedio en la cola de las cajas: " + (TiempoPromedioAtencCaja / totalClientesAtendidos);
             rTiempoEsperaMaximoCajas.Text = "Tiempo de espera máximo en la cola de las cajas: " + TiempoMaxAtencCaja;
-            /*
-            eventos.Add(ev);
-            while (TiempoSimulacion < Int32.Parse(horasSimulacion.Value.ToString()))
-            {
-                if (eventos.Count > 0)
-                {
-                    Evento evento = eventos[0];
-                    if(evento.Cliente != null)
-                    {
-                        TiempoSimulacion = TiempoSimulacion + evento.Cliente.HoraLlegada;
-                    }
-                    else
-                    {
-
-                    }
-                }
-            }*/
         }
 
+        /// <summary>
+        /// Agrega un evento a la lista de eventos con la hora absoluta a la que llegará el próximo cliente
+        /// </summary>
         private void planificarLlegadaCliente()
         {
             Evento e = new Evento();
@@ -190,6 +176,9 @@ namespace ModelosTP
             }
         }
 
+        /// <summary>
+        /// Cuándo termina de usarse una terminal
+        /// </summary>
         private void planificarTiempoCaja(int nroCaja)
         {
             Evento e = new Evento();
@@ -243,6 +232,11 @@ namespace ModelosTP
             c.ColaClientes.Add(cl);
         }
 
+        /// <summary>
+        /// Detiene la simulación
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bDetener_Click(object sender, EventArgs e)
         {
             cantidadCajas.Enabled = true;
@@ -250,6 +244,16 @@ namespace ModelosTP
             horasSimulacion.Enabled = true;
         }
 
+        /// <summary>
+        /// Genera una variable aleatoria X con distribución normal tomando como parámetro la media, desviación,
+        /// moda, intervalo inferior e intervalo superior
+        /// </summary>
+        /// <param name="media">Media de los datos observados</param>
+        /// <param name="desviacion">Desviación estándar de los datos observados</param>
+        /// <param name="moda">Moda de los datos observados</param>
+        /// <param name="limiteInferiorIntervalo">Valor mínimo observado/obtenible</param>
+        /// <param name="limiteSuperiorIntervalo">Valor máximo observado/obtenible</param>
+        /// <returns>Variable X generada aleatoriamente</returns>
         private int generarXNormal(double media, double desviacion, double moda, double limiteInferiorIntervalo, double limiteSuperiorIntervalo)
         {
             bool listo = false;
@@ -283,6 +287,11 @@ namespace ModelosTP
             return x;
         }
 
+        /// <summary>
+        /// Genera una variable aleatoria X con distribución uniforme tomando como parámetro la moda
+        /// </summary>
+        /// <param name="moda">Moda de los datos observados</param>
+        /// <returns>Variable X generada aleatoriamente</returns>
         private int generarXUniforme(double moda)
         {
             bool listo = false;

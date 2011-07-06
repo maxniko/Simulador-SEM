@@ -185,6 +185,16 @@
             // cantidadTerminales
             // 
             this.cantidadTerminales.Location = new System.Drawing.Point(9, 110);
+            this.cantidadTerminales.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.cantidadTerminales.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.cantidadTerminales.Name = "cantidadTerminales";
             this.cantidadTerminales.Size = new System.Drawing.Size(76, 20);
             this.cantidadTerminales.TabIndex = 0;
@@ -197,6 +207,16 @@
             // cantidadCajas
             // 
             this.cantidadCajas.Location = new System.Drawing.Point(9, 71);
+            this.cantidadCajas.Maximum = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.cantidadCajas.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.cantidadCajas.Name = "cantidadCajas";
             this.cantidadCajas.Size = new System.Drawing.Size(76, 20);
             this.cantidadCajas.TabIndex = 1;
@@ -209,6 +229,16 @@
             // horasSimulacion
             // 
             this.horasSimulacion.Location = new System.Drawing.Point(9, 32);
+            this.horasSimulacion.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.horasSimulacion.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.horasSimulacion.Name = "horasSimulacion";
             this.horasSimulacion.Size = new System.Drawing.Size(76, 20);
             this.horasSimulacion.TabIndex = 5;

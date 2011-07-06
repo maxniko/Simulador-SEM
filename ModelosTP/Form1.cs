@@ -74,6 +74,7 @@ namespace ModelosTP
                     default:
                         break;
                 }
+                calcularTiempoOcioso();
                 if (TiempoSimulacion > (horasSimulacion.Value * 60) - 20)
                 {
                     bool ok = true;
@@ -135,7 +136,9 @@ namespace ModelosTP
             if (cajas[e.IdCaja].Estado == 0)
             {
                 cajas[e.IdCaja].Estado = 1;
-                tiempoOcioso += (TiempoSimulacion - cajas[e.IdCaja].TiempoInactivo);
+                //No descomentar. El tiempo ocioso se calcula en cada "vuelta del reloj". No cada vez que se
+                //ocupa una caja.
+                //tiempoOcioso += (TiempoSimulacion - cajas[e.IdCaja].TiempoInactivo);
                 planificarTiempoCaja(e.IdCaja, e.Cliente);
 
                 TiempoSimulacion = e.HoraEjecucionAbsoluta;
@@ -162,6 +165,8 @@ namespace ModelosTP
             {
                 if (cajas[e.IdCaja].ColaClientes.Count > 1)
                 {
+                    //Por qué cuernos planificamos primero el siguiente cliente en lugar de planificar
+                    //el cliente actual???
                     planificarTiempoCaja(e.IdCaja, cajas[e.IdCaja].ColaClientes[1]);
                     Evento ev = e;
                     ev.Cliente = cajas[e.IdCaja].ColaClientes[1];
@@ -176,10 +181,11 @@ namespace ModelosTP
                 TiempoPermanenciaCliente = TiempoPermanenciaCliente + (TiempoSimulacion - cajas[e.IdCaja].ColaClientes[0].HoraLlegada);
                 totalClientesAtendidos++;
                 cajas[e.IdCaja].ColaClientes.RemoveAt(0);
-                if (cajas[e.IdCaja].ColaClientes.Count == 0)
-                {
-                    cajas[e.IdCaja].TiempoInactivo = TiempoSimulacion;
-                }
+                
+            }
+            else
+            {
+                cajas[e.IdCaja].TiempoInactivo = TiempoSimulacion;
             }
         }
 
@@ -281,6 +287,22 @@ namespace ModelosTP
             cl.HoraLlegada = TiempoSimulacion; //Hora a la que llega a esperar a la fila
             e.Cliente = cl;
             insertarClienteEnColaMasChica(e);
+        }
+
+        #region Métodos que seguro funcionan
+        /// <summary>
+        /// Recorre el List de cajas en busca de cajas ociosas y agrega el tiempo ocioso al total
+        /// </summary>
+        private void calcularTiempoOcioso()
+        {
+            foreach (Caja caja in cajas)
+            {
+                if (caja.Estado == 0)
+                {
+                    tiempoOcioso += (TiempoSimulacion - caja.TiempoInactivo);
+                    caja.TiempoInactivo = TiempoSimulacion;
+                }
+            }
         }
 
         /// <summary>
@@ -516,5 +538,6 @@ namespace ModelosTP
             cantidadTerminales.Enabled = true;
             horasSimulacion.Enabled = true;
         }
+        #endregion
     }
 }

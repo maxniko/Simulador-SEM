@@ -40,6 +40,7 @@ namespace ModelosTP
         private void bComenzar_Click(object sender, EventArgs e)
         {
             bDetener_Click(sender, e);
+            bloquear();
             generarLog();
             numeroEvento = 0;
 
@@ -84,6 +85,7 @@ namespace ModelosTP
             rTiempoAcumuladoOcioso.Text = "Tiempo acumulado de cajeros ociosos: " + tiempoOcioso;
             rTiempoTramiteCliente.Text = "Tiempo promedio para trámites de un cliente: " + (TiempoPermanenciaCliente/totalClientesAtendidos).ToString();
             rTotalClientes.Text = "Total de clientes atendidos: " + totalClientesAtendidos;
+            desbloquear();
         }
 
         /// <summary>
@@ -489,6 +491,30 @@ namespace ModelosTP
             StreamWriter writer = new StreamWriter(stream);
             writer.WriteLine("=======================   LOG DEL SIMULADOR SEM   =======================\n\n");
             writer.Close();
+        }
+        
+        /// <summary>
+        /// Bloquea los botones y parámetros
+        /// </summary>
+        private void bloquear()
+        {
+            bComenzar.Enabled = false;
+            bDetener.Enabled = false;
+            cantidadCajas.Enabled = false;
+            cantidadTerminales.Enabled = false;
+            horasSimulacion.Enabled = false;
+        }
+
+        /// <summary>
+        /// Desbloquea los botones y parámetros
+        /// </summary>
+        private void desbloquear()
+        {
+            bComenzar.Enabled = true;
+            bDetener.Enabled = true;
+            cantidadCajas.Enabled = true;
+            cantidadTerminales.Enabled = true;
+            horasSimulacion.Enabled = true;
         }
     }
 }

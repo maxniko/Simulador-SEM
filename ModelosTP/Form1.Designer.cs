@@ -108,7 +108,7 @@
             this.groupBox1.Controls.Add(this.rColaMaximaTerminales);
             this.groupBox1.Location = new System.Drawing.Point(153, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(320, 148);
+            this.groupBox1.Size = new System.Drawing.Size(378, 148);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Resultados";
@@ -199,7 +199,7 @@
             this.cantidadTerminales.Size = new System.Drawing.Size(76, 20);
             this.cantidadTerminales.TabIndex = 0;
             this.cantidadTerminales.Value = new decimal(new int[] {
-            5,
+            1,
             0,
             0,
             0});
@@ -221,7 +221,7 @@
             this.cantidadCajas.Size = new System.Drawing.Size(76, 20);
             this.cantidadCajas.TabIndex = 1;
             this.cantidadCajas.Value = new decimal(new int[] {
-            5,
+            1,
             0,
             0,
             0});
@@ -252,7 +252,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(485, 206);
+            this.ClientSize = new System.Drawing.Size(543, 206);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.bDetener);

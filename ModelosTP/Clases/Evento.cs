@@ -44,6 +44,7 @@ namespace ModelosTP.Clases
         /// 3 = cliente comienza a usar terminal.
         /// 4 = cliente comienza a ser atendido.
         /// 5 = cliente comienza a hacer cola para caja.
+        /// 6 = error
         /// </summary>
         public int TipoEvento
         {

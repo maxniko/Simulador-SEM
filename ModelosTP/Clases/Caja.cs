@@ -9,7 +9,8 @@ namespace ModelosTP.Clases
     {
         private List<Cliente> colaClientes = new List<Cliente>();
         int tiempoInactivo = 0;
-        int estado;
+        int estado = 0;
+        int vecesUtilizada = 0;
 
         /// <summary>
         /// 0 = Ocioso
@@ -31,6 +32,12 @@ namespace ModelosTP.Clases
         {
             get { return tiempoInactivo; }
             set { tiempoInactivo = value; }
+        }
+
+        public int VecesUtilizada
+        {
+            get { return vecesUtilizada; }
+            set { vecesUtilizada = value; }
         }
     }
 }

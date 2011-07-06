@@ -27,7 +27,7 @@ namespace ModelosTP
         private List<Evento> eventos = new List<Evento>();
         private List<Caja> cajas = new List<Caja>();
         private List<Terminal> terminales = new List<Terminal>();
-        private int colaTerminales = 0;
+        private List<Cliente> colaTerminales = new List<Cliente>();
         private int clientesEnBanco = 0;
         private int numeroEvento = 0;
         #endregion
@@ -53,37 +53,48 @@ namespace ModelosTP
             {
                 terminales.Add(new Terminal());
             }
-
+            bool ok = true;
             planificarLlegadaCliente();
-            while (TiempoSimulacion <= (horasSimulacion.Value * 60))
+            while (TiempoSimulacion < (horasSimulacion.Value * 60) && ok)
             {
-                Evento ev = eventos[numeroEvento];
-                loguear(ev);
-                numeroEvento++;
-                switch (ev.TipoEvento)
+                try
                 {
-                    case 0:
-                        llegaCliente(ev);
-                        break;
-                    case 1:
-                        terminarUsarTerminal(ev);
-                        break;
-                    case 2:
-                        terminarAtencCaja(ev);
-                        break;
-                    default:
-                        break;
+                    //La línea del mal...
+                    Evento ev = eventos[numeroEvento];
+                    loguear(ev);
+                    numeroEvento++;
+                    switch (ev.TipoEvento)
+                    {
+                        case 0:
+                            llegaCliente(ev);
+                            break;
+                        case 1:
+                            terminarUsarTerminal(ev);
+                            break;
+                        case 2:
+                            terminarAtencCaja(ev);
+                            break;
+                        default:
+                            break;
+                    }
+                    calcularTiempoOcioso();
                 }
-                calcularTiempoOcioso();
-                if (TiempoSimulacion > (horasSimulacion.Value * 60) - 20)
+                catch (Exception exc)
                 {
-                    bool ok = true;
+                    Evento kjh = new Evento();
+                    kjh.TipoEvento = 6;
+                    loguear(kjh);
+                    MessageBox.Show("Ud. se ha comunicado con el centro de atención al suicida.\n" +
+                                    "Por favor, aguarde un momento y será atendido por uno de nuestros operadores.\n" +
+                                    "No cuelgue, y no SE cuelgue.\n\n" +
+                                    "Error:\n" + exc.Message);
+                    ok = false;
                 }
             }
             rColaMaximaTerminales.Text = "Tamaño máximo de la cola en terminales: " + maximaColaTerminales;
             rTiempoEsperaPromedioCajas.Text = "Tiempo de espera promedio en la cola de las cajas: " + (TiempoTotalEsperaEnColaCaja / totalClientesAtendidos);
             rTiempoEsperaMaximoCajas.Text = "Tiempo de espera máximo en la cola de las cajas: " + TiempoMaximoEsperaEnColaCaja;
-            rTiempoAcumuladoOcioso.Text = "Tiempo acumulado de cajeros ociosos: " + tiempoOcioso;
+            rTiempoAcumuladoOcioso.Text = "Tiempo acumulado de cajeros ociosos: " + tiempoOcioso + " minutos (~" + (tiempoOcioso/60) + " horas)";
             rTiempoTramiteCliente.Text = "Tiempo promedio para trámites de un cliente: " + (TiempoPermanenciaCliente/totalClientesAtendidos).ToString();
             rTotalClientes.Text = "Total de clientes atendidos: " + totalClientesAtendidos;
             desbloquear();
@@ -122,8 +133,14 @@ namespace ModelosTP
             }
             else //pasa primero por las terminales
             {
-                colaTerminales++;
-                ocuparTerminal(e);
+                if (colaTerminales.Count == 0)
+                {
+                    ocuparTerminal(e);
+                }
+                else
+                {
+                    colaTerminales.Add(e.Cliente);
+                }
             }
         }
 
@@ -135,6 +152,7 @@ namespace ModelosTP
         {
             if (cajas[e.IdCaja].Estado == 0)
             {
+                calcularTiempoOcioso();
                 cajas[e.IdCaja].Estado = 1;
                 //No descomentar. El tiempo ocioso se calcula en cada "vuelta del reloj". No cada vez que se
                 //ocupa una caja.
@@ -165,8 +183,7 @@ namespace ModelosTP
             {
                 if (cajas[e.IdCaja].ColaClientes.Count > 1)
                 {
-                    //Por qué cuernos planificamos primero el siguiente cliente en lugar de planificar
-                    //el cliente actual???
+                    //El cliente 0 es el que acaba de ser atendido. Se planifica el cliente 1.
                     planificarTiempoCaja(e.IdCaja, cajas[e.IdCaja].ColaClientes[1]);
                     Evento ev = e;
                     ev.Cliente = cajas[e.IdCaja].ColaClientes[1];
@@ -178,10 +195,13 @@ namespace ModelosTP
                     cajas[e.IdCaja].Estado = 0;
                     cajas[e.IdCaja].TiempoInactivo = TiempoSimulacion;
                 }
-                TiempoPermanenciaCliente = TiempoPermanenciaCliente + (TiempoSimulacion - cajas[e.IdCaja].ColaClientes[0].HoraLlegada);
+                TiempoPermanenciaCliente += (TiempoSimulacion - cajas[e.IdCaja].ColaClientes[0].HoraLlegada);
+                //Se contabiliza un cliente atendido (para el total)
                 totalClientesAtendidos++;
+                //El cliente 0 FINALMENTE se fue.
                 cajas[e.IdCaja].ColaClientes.RemoveAt(0);
-                
+                //Se contabiliza un cliente atendido (para esta caja)
+                cajas[e.IdCaja].VecesUtilizada++;
             }
             else
             {
@@ -202,13 +222,13 @@ namespace ModelosTP
                     t.Estado = 1;
                     t.Cliente = e.Cliente;
                     terminales[i] = t;
-                    colaTerminales--;
+                    //colaTerminales.RemoveAt(0);
                     planificarUsoTerminal(t);
                     break;
                 }
-                else if (maximaColaTerminales < colaTerminales)
+                else if (maximaColaTerminales < colaTerminales.Count)
                 {
-                    maximaColaTerminales = colaTerminales;
+                    maximaColaTerminales = colaTerminales.Count;
                 }
             }
             e.TipoEvento = 3;
@@ -270,22 +290,29 @@ namespace ModelosTP
         private void terminarUsarTerminal(Evento e)
         {
             TiempoSimulacion = e.HoraEjecucionAbsoluta;
-            Cliente cl = e.Cliente;
+            //Cliente cl = e.Cliente;
             
             for (int i = 0; i < terminales.Count; i++)
             {
                 Terminal t = terminales[i];
-                if (t.Estado == 1)
+                if (t.Estado == 1 && t.Cliente == e.Cliente)
                 {
                     t.Estado = 0;
-                    cl = t.Cliente;
+                    //cl = t.Cliente;
                     terminales[i] = t;
+                    if (colaTerminales.Count > 0)
+                    {
+                        Evento nextCliente = new Evento();
+                        nextCliente.Cliente = colaTerminales[0];
+                        nextCliente.TipoEvento = 3;
+                        nextCliente.Terminal = t;
+                        nextCliente.HoraEjecucionAbsoluta = TiempoSimulacion;
+                        ocuparTerminal(nextCliente);
+                    }
                     break;
                 }
             }
-
-            cl.HoraLlegada = TiempoSimulacion; //Hora a la que llega a esperar a la fila
-            e.Cliente = cl;
+            //e.Cliente = cl;
             insertarClienteEnColaMasChica(e);
         }
 
@@ -324,7 +351,7 @@ namespace ModelosTP
             eventos.Clear();
             cajas.Clear();
             terminales.Clear();
-            colaTerminales = 0;
+            colaTerminales.Clear();
             clientesEnBanco = 0;
             numeroEvento = 0;
             
@@ -487,6 +514,15 @@ namespace ModelosTP
                     break;
                 case 5:
                     writer.WriteLine(entrada += "Un cliente comienza a esperar en la cola para una caja");
+                    writer.WriteLine("\t\t:" + e.TipoEvento + ": => Tipo de evento");
+                    writer.WriteLine("\t\t:" + e.Cliente.IdCliente + ": => Cliente");
+                    writer.WriteLine("\t\t:" + e.IdCaja + ": => Caja");
+                    writer.WriteLine();
+                    break;
+                case 6:
+                    writer.WriteLine(entrada += "############################################################");
+                    writer.WriteLine(entrada += "Se ha producido un error. Contáctese con los desarrolladores");
+                    writer.WriteLine(entrada += "############################################################");
                     writer.WriteLine("\t\t:" + e.TipoEvento + ": => Tipo de evento");
                     writer.WriteLine("\t\t:" + e.Cliente.IdCliente + ": => Cliente");
                     writer.WriteLine("\t\t:" + e.IdCaja + ": => Caja");

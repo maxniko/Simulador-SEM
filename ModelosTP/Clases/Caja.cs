@@ -11,6 +11,7 @@ namespace ModelosTP.Clases
         int tiempoInactivo = 0;
         int estado = 0;
         int vecesUtilizada = 0;
+        private Cliente clienteAtendiendo = null;
 
         /// <summary>
         /// 0 = Ocioso
@@ -21,6 +22,13 @@ namespace ModelosTP.Clases
             get { return estado; }
             set { estado = value; }
         }
+
+        public Cliente ClienteQueSeAtiende
+        {
+            get { return clienteAtendiendo; }
+            set { clienteAtendiendo = value; }
+        }
+
 
         public List<Cliente> ColaClientes
         {

@@ -14,11 +14,18 @@ namespace ModelosTP.Clases
         private Cliente cliente = new Cliente(-1);        
         private int idCaja = 0;
         private Terminal terminal = null;
+        private string mensaje;
 
         public int HoraEjecucionAbsoluta
         {
             get { return horaEjecucionAbsoluta; }
             set { horaEjecucionAbsoluta = value; }
+        }
+
+        public string Mensaje
+        {
+            get { return mensaje; }
+            set { mensaje = value; }
         }
 
         //public int IdCliente

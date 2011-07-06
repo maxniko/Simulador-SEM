@@ -55,12 +55,15 @@ namespace ModelosTP
             }
             bool ok = true;
             planificarLlegadaCliente();
-            while (TiempoSimulacion < (horasSimulacion.Value * 60) && ok)
+            int horas = Int32.Parse((horasSimulacion.Value * 60).ToString());
+
+            while (TiempoSimulacion < horas  && ok)
             {
                 try
                 {
                     //La línea del mal...
                     Evento ev = eventos[numeroEvento];
+
                     loguear(ev);
                     numeroEvento++;
                     switch (ev.TipoEvento)
@@ -83,6 +86,7 @@ namespace ModelosTP
                 {
                     Evento kjh = new Evento();
                     kjh.TipoEvento = 6;
+                    kjh.Mensaje = exc.StackTrace;
                     loguear(kjh);
                     MessageBox.Show("Ud. se ha comunicado con el centro de atención al suicida.\n" +
                                     "Por favor, aguarde un momento y será atendido por uno de nuestros operadores.\n" +
@@ -91,12 +95,27 @@ namespace ModelosTP
                     ok = false;
                 }
             }
-            rColaMaximaTerminales.Text = "Tamaño máximo de la cola en terminales: " + maximaColaTerminales;
-            rTiempoEsperaPromedioCajas.Text = "Tiempo de espera promedio en la cola de las cajas: " + (TiempoTotalEsperaEnColaCaja / totalClientesAtendidos);
-            rTiempoEsperaMaximoCajas.Text = "Tiempo de espera máximo en la cola de las cajas: " + TiempoMaximoEsperaEnColaCaja;
-            rTiempoAcumuladoOcioso.Text = "Tiempo acumulado de cajeros ociosos: " + tiempoOcioso + " minutos (~" + (tiempoOcioso/60) + " horas)";
-            rTiempoTramiteCliente.Text = "Tiempo promedio para trámites de un cliente: " + (TiempoPermanenciaCliente/totalClientesAtendidos).ToString();
-            rTotalClientes.Text = "Total de clientes atendidos: " + totalClientesAtendidos;
+            try
+            {
+                rColaMaximaTerminales.Text = "Tamaño máximo de la cola en terminales: " + maximaColaTerminales;
+                rTiempoEsperaPromedioCajas.Text = "Tiempo de espera promedio en la cola de las cajas: " + (TiempoTotalEsperaEnColaCaja / totalClientesAtendidos);
+                rTiempoEsperaMaximoCajas.Text = "Tiempo de espera máximo en la cola de las cajas: " + TiempoMaximoEsperaEnColaCaja;
+                rTiempoAcumuladoOcioso.Text = "Tiempo acumulado de cajeros ociosos: " + tiempoOcioso + " minutos (~" + (tiempoOcioso / 60) + " horas)";
+                rTiempoTramiteCliente.Text = "Tiempo promedio para trámites de un cliente: " + (TiempoPermanenciaCliente / totalClientesAtendidos).ToString();
+                rTotalClientes.Text = "Total de clientes atendidos: " + totalClientesAtendidos;
+            }
+            catch (Exception exc)
+            {
+                Evento kjh = new Evento();
+                kjh.TipoEvento = 6;
+                kjh.Mensaje = exc.StackTrace;
+                loguear(kjh);
+                MessageBox.Show("Ud. se ha comunicado con el centro de atención al suicida.\n" +
+                                "Por favor, aguarde un momento y será atendido por uno de nuestros operadores.\n" +
+                                "No cuelgue, y no SE cuelgue.\n\n" +
+                                "Error:\n" + exc.Message );
+                ok = false;
+            }
             desbloquear();
         }
 
@@ -150,17 +169,15 @@ namespace ModelosTP
         /// <param name="e"></param>
         private Evento ocuparCaja(Evento e)
         {
+
             if (cajas[e.IdCaja].Estado == 0)
             {
                 calcularTiempoOcioso();
                 cajas[e.IdCaja].Estado = 1;
-                //No descomentar. El tiempo ocioso se calcula en cada "vuelta del reloj". No cada vez que se
-                //ocupa una caja.
-                //tiempoOcioso += (TiempoSimulacion - cajas[e.IdCaja].TiempoInactivo);
+                cajas[e.IdCaja].ClienteQueSeAtiende = e.Cliente;
                 planificarTiempoCaja(e.IdCaja, e.Cliente);
 
-                TiempoSimulacion = e.HoraEjecucionAbsoluta;
-                int aux = TiempoSimulacion - cajas[e.IdCaja].ColaClientes[0].TiempoEsperaCaja;
+                int aux = TiempoSimulacion - cajas[e.IdCaja].ClienteQueSeAtiende.TiempoEsperaCaja;
                 if (aux > TiempoMaximoEsperaEnColaCaja)
                 {
                     TiempoMaximoEsperaEnColaCaja = aux;
@@ -170,43 +187,62 @@ namespace ModelosTP
             }
             else
             {
+
                 e.Cliente.TiempoEsperaCaja = TiempoSimulacion;
+                cajas[e.IdCaja].ColaClientes.Add(e.Cliente);
                 e.TipoEvento = 5;
                 loguear(e);
             }
             return e;
         }
-
+        /// <summary>
+        /// se ejecuta en el tipo evento 2, 
+        /// </summary>
+        /// <param name="e"></param>
         private void terminarAtencCaja(Evento e)
         {
-            if (cajas[e.IdCaja].ColaClientes.Count != 0)
-            {
-                if (cajas[e.IdCaja].ColaClientes.Count > 1)
+
+            TiempoSimulacion = e.HoraEjecucionAbsoluta;
+            // variable para ahorrar calculos si hay o no cola
+            bool hayCola = false; 
+
+            //if (cajas[e.IdCaja].ColaClientes.Count > 0)
+            //{
+                if (cajas[e.IdCaja].ColaClientes.Count > 0)
                 {
-                    //El cliente 0 es el que acaba de ser atendido. Se planifica el cliente 1.
-                    planificarTiempoCaja(e.IdCaja, cajas[e.IdCaja].ColaClientes[1]);
+                   //se planifica el siguiente cliente en cola 
+                    planificarTiempoCaja(e.IdCaja, cajas[e.IdCaja].ColaClientes[0]);
                     Evento ev = e;
-                    ev.Cliente = cajas[e.IdCaja].ColaClientes[1];
+                    ev.Cliente = cajas[e.IdCaja].ColaClientes[0];
                     ev.TipoEvento = 4;
                     loguear(ev);
+                    hayCola = true;
                 }
                 else
                 {
                     cajas[e.IdCaja].Estado = 0;
                     cajas[e.IdCaja].TiempoInactivo = TiempoSimulacion;
+                    
                 }
-                TiempoPermanenciaCliente += (TiempoSimulacion - cajas[e.IdCaja].ColaClientes[0].HoraLlegada);
+                TiempoPermanenciaCliente += (TiempoSimulacion - cajas[e.IdCaja].ClienteQueSeAtiende.HoraLlegada);
                 //Se contabiliza un cliente atendido (para el total)
                 totalClientesAtendidos++;
-                //El cliente 0 FINALMENTE se fue.
-                cajas[e.IdCaja].ColaClientes.RemoveAt(0);
+                //El cliente que se está antendiendo FINALMENTE se fue.
+                cajas[e.IdCaja].ClienteQueSeAtiende = null;
+                //si hay cola se supone que atiende al siguiente
+                if (hayCola == true)
+                {
+                    cajas[e.IdCaja].ClienteQueSeAtiende = cajas[e.IdCaja].ColaClientes[0];
+                    cajas[e.IdCaja].ColaClientes.RemoveAt(0);
+                }
                 //Se contabiliza un cliente atendido (para esta caja)
                 cajas[e.IdCaja].VecesUtilizada++;
-            }
-            else
-            {
-                cajas[e.IdCaja].TiempoInactivo = TiempoSimulacion;
-            }
+            //}
+            //else
+            //{
+            //    cajas[e.IdCaja].Estado = 0;
+            //    cajas[e.IdCaja].TiempoInactivo = TiempoSimulacion;
+            //}
         }
 
         /// <summary>
@@ -254,7 +290,6 @@ namespace ModelosTP
             }
             e.Cliente.TiempoEsperaCaja = TiempoSimulacion;
             e.IdCaja = cajaMenor;
-            cajas[cajaMenor].ColaClientes.Add(e.Cliente);
             ocuparCaja(e);
         }
 
@@ -520,12 +555,11 @@ namespace ModelosTP
                     writer.WriteLine();
                     break;
                 case 6:
-                    writer.WriteLine(entrada += "############################################################");
-                    writer.WriteLine(entrada += "Se ha producido un error. Contáctese con los desarrolladores");
-                    writer.WriteLine(entrada += "############################################################");
-                    writer.WriteLine("\t\t:" + e.TipoEvento + ": => Tipo de evento");
-                    writer.WriteLine("\t\t:" + e.Cliente.IdCliente + ": => Cliente");
-                    writer.WriteLine("\t\t:" + e.IdCaja + ": => Caja");
+                    writer.WriteLine("############################################################");
+                    writer.WriteLine("Se ha producido un error. Contáctese con los desarrolladores");
+                    writer.WriteLine("############################################################");
+                    writer.WriteLine();
+                    writer.WriteLine(e.Mensaje);
                     writer.WriteLine();
                     break;
                 default:

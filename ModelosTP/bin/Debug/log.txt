@@ -1,12 +1,12 @@
 =======================   LOG DEL SIMULADOR SEM   =======================
 
 
-0:2 => Llega un cliente al sistema
+0:11 => Llega un cliente al sistema
 		:0: => Tipo de evento
 		:0: => Cliente
 		:0: => Caja
 
-0:2 => Un cliente comienza a ser atendido
+0:11 => Un cliente comienza a ser atendido
 		:4: => Tipo de evento
 		:0: => Cliente
 		:0: => Caja
@@ -21,965 +21,100 @@
 		:1: => Cliente
 		:0: => Caja
 
-0:15 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:0: => Cliente
+0:15 => Llega un cliente al sistema
+		:0: => Tipo de evento
+		:2: => Cliente
 		:0: => Caja
 
-0:18 => Un cliente termina de usar una terminal
+0:15 => Un cliente comienza a usar una terminal
+		:3: => Tipo de evento
+		:2: => Cliente
+		:0: => Caja
+
+0:16 => Un cliente termina de usar una terminal
 		:1: => Tipo de evento
 		:1: => Cliente
 		:0: => Caja
 
-0:18 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
+0:16 => Un cliente comienza a esperar en la cola para una caja
+		:5: => Tipo de evento
 		:1: => Cliente
 		:0: => Caja
 
-0:23 => Llega un cliente al sistema
+0:20 => Llega un cliente al sistema
 		:0: => Tipo de evento
-		:2: => Cliente
+		:3: => Cliente
+		:0: => Caja
+
+0:20 => Un cliente comienza a usar una terminal
+		:3: => Tipo de evento
+		:3: => Cliente
+		:0: => Caja
+
+0:23 => Un cliente termina de usar una terminal
+		:1: => Tipo de evento
+		:3: => Cliente
 		:0: => Caja
 
 0:23 => Un cliente comienza a esperar en la cola para una caja
 		:5: => Tipo de evento
-		:2: => Cliente
+		:3: => Cliente
 		:0: => Caja
 
-0:29 => Un cliente termina de ser atendido por la caja (y se va)
+0:25 => Llega un cliente al sistema
+		:0: => Tipo de evento
+		:4: => Cliente
+		:0: => Caja
+
+0:25 => Un cliente comienza a esperar en la cola para una caja
+		:5: => Tipo de evento
+		:4: => Cliente
+		:0: => Caja
+
+0:25 => Un cliente comienza a esperar en la cola para una caja
+		:5: => Tipo de evento
+		:4: => Cliente
+		:0: => Caja
+
+0:25 => Un cliente termina de ser atendido por la caja (y se va)
+		:2: => Tipo de evento
+		:0: => Cliente
+		:0: => Caja
+
+0:25 => Un cliente comienza a ser atendido
+		:4: => Tipo de evento
+		:1: => Cliente
+		:0: => Caja
+
+0:38 => Un cliente termina de ser atendido por la caja (y se va)
 		:2: => Tipo de evento
 		:1: => Cliente
 		:0: => Caja
 
-0:29 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:2: => Cliente
-		:0: => Caja
-
-0:30 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:3: => Cliente
-		:0: => Caja
-
-0:30 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:3: => Cliente
-		:0: => Caja
-
-0:31 => Un cliente termina de usar una terminal
-		:1: => Tipo de evento
-		:3: => Cliente
-		:0: => Caja
-
-0:31 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:3: => Cliente
-		:0: => Caja
-
-0:37 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:2: => Cliente
-		:0: => Caja
-
-0:37 => Un cliente comienza a ser atendido
+0:38 => Un cliente comienza a ser atendido
 		:4: => Tipo de evento
 		:3: => Cliente
 		:0: => Caja
 
-0:39 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:4: => Cliente
-		:0: => Caja
-
-0:39 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:4: => Cliente
-		:0: => Caja
-
-0:40 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:5: => Cliente
-		:0: => Caja
-
-0:40 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:5: => Cliente
-		:0: => Caja
-
-0:40 => Un cliente termina de ser atendido por la caja (y se va)
+0:45 => Un cliente termina de ser atendido por la caja (y se va)
 		:2: => Tipo de evento
 		:3: => Cliente
 		:0: => Caja
 
-0:40 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:5: => Cliente
-		:0: => Caja
-
-0:46 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:6: => Cliente
-		:0: => Caja
-
-0:46 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:6: => Cliente
-		:0: => Caja
-
-0:47 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:5: => Cliente
-		:0: => Caja
-
-0:49 => Un cliente termina de usar una terminal
-		:1: => Tipo de evento
-		:4: => Cliente
-		:0: => Caja
-
-0:49 => Un cliente comienza a ser atendido
+0:45 => Un cliente comienza a ser atendido
 		:4: => Tipo de evento
 		:4: => Cliente
 		:0: => Caja
 
-0:53 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:7: => Cliente
-		:0: => Caja
-
-0:53 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:7: => Cliente
-		:0: => Caja
-
-0:56 => Un cliente termina de ser atendido por la caja (y se va)
+0:53 => Un cliente termina de ser atendido por la caja (y se va)
 		:2: => Tipo de evento
 		:4: => Cliente
 		:0: => Caja
 
-0:56 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:7: => Cliente
-		:0: => Caja
-
-0:58 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:8: => Cliente
-		:0: => Caja
-
-0:58 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:8: => Cliente
-		:0: => Caja
-
-1:3 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:9: => Cliente
-		:0: => Caja
-
-1:3 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:9: => Cliente
-		:0: => Caja
-
-1:3 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:7: => Cliente
-		:0: => Caja
-
-1:7 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:10: => Cliente
-		:0: => Caja
-
-1:7 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:10: => Cliente
-		:0: => Caja
-
-1:7 => Un cliente termina de usar una terminal
-		:1: => Tipo de evento
-		:8: => Cliente
-		:0: => Caja
-
-1:7 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:8: => Cliente
-		:0: => Caja
-
-1:13 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:11: => Cliente
-		:0: => Caja
-
-1:13 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:11: => Cliente
-		:0: => Caja
-
-1:21 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:8: => Cliente
-		:0: => Caja
-
-1:21 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:11: => Cliente
-		:0: => Caja
-
-1:22 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:11: => Cliente
-		:0: => Caja
-
-1:23 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:12: => Cliente
-		:0: => Caja
-
-1:23 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:12: => Cliente
-		:0: => Caja
-
-1:29 => Un cliente termina de usar una terminal
-		:1: => Tipo de evento
-		:12: => Cliente
-		:0: => Caja
-
-1:29 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:12: => Cliente
-		:0: => Caja
-
-1:30 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:13: => Cliente
-		:0: => Caja
-
-1:30 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:13: => Cliente
-		:0: => Caja
-
-1:34 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:14: => Cliente
-		:0: => Caja
-
-1:34 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:14: => Cliente
-		:0: => Caja
-
-1:36 => Un cliente termina de usar una terminal
-		:1: => Tipo de evento
-		:13: => Cliente
-		:0: => Caja
-
-1:36 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:13: => Cliente
-		:0: => Caja
-
-1:36 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:12: => Cliente
-		:0: => Caja
-
-1:36 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:13: => Cliente
-		:0: => Caja
-
-1:42 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:15: => Cliente
-		:0: => Caja
-
-1:42 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:15: => Cliente
-		:0: => Caja
-
-1:43 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:13: => Cliente
-		:0: => Caja
-
-1:49 => Un cliente termina de usar una terminal
-		:1: => Tipo de evento
-		:15: => Cliente
-		:0: => Caja
-
-1:49 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:15: => Cliente
-		:0: => Caja
-
-1:49 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:16: => Cliente
-		:0: => Caja
-
-1:49 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:16: => Cliente
-		:0: => Caja
-
-1:51 => Un cliente termina de usar una terminal
-		:1: => Tipo de evento
-		:16: => Cliente
-		:0: => Caja
-
-1:51 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:16: => Cliente
-		:0: => Caja
-
-1:56 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:17: => Cliente
-		:0: => Caja
-
-1:56 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:17: => Cliente
-		:0: => Caja
-
-1:57 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:15: => Cliente
-		:0: => Caja
-
-1:57 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:16: => Cliente
-		:0: => Caja
-
-2:2 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:18: => Cliente
-		:0: => Caja
-
-2:2 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:18: => Cliente
-		:0: => Caja
-
-2:4 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:19: => Cliente
-		:0: => Caja
-
-2:4 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:19: => Cliente
-		:0: => Caja
-
-2:4 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:16: => Cliente
-		:0: => Caja
-
-2:4 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:17: => Cliente
-		:0: => Caja
-
-2:11 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:20: => Cliente
-		:0: => Caja
-
-2:11 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:20: => Cliente
-		:0: => Caja
-
-2:14 => Un cliente termina de usar una terminal
-		:1: => Tipo de evento
-		:19: => Cliente
-		:0: => Caja
-
-2:14 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:19: => Cliente
-		:0: => Caja
-
-2:16 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:17: => Cliente
-		:0: => Caja
-
-2:16 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:18: => Cliente
-		:0: => Caja
-
-2:19 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:18: => Cliente
-		:0: => Caja
-
-2:19 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:19: => Cliente
-		:0: => Caja
-
-2:19 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:21: => Cliente
-		:0: => Caja
-
-2:19 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:21: => Cliente
-		:0: => Caja
-
-2:21 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:22: => Cliente
-		:0: => Caja
-
-2:21 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:22: => Cliente
-		:0: => Caja
-
-2:23 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:19: => Cliente
-		:0: => Caja
-
-2:29 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:23: => Cliente
-		:0: => Caja
-
-2:29 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:23: => Cliente
-		:0: => Caja
-
-2:30 => Un cliente termina de usar una terminal
-		:1: => Tipo de evento
-		:21: => Cliente
-		:0: => Caja
-
-2:30 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:21: => Cliente
-		:0: => Caja
-
-2:37 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:24: => Cliente
-		:0: => Caja
-
-2:37 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:24: => Cliente
-		:0: => Caja
-
-2:43 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:21: => Cliente
-		:0: => Caja
-
-2:47 => Un cliente termina de usar una terminal
-		:1: => Tipo de evento
-		:24: => Cliente
-		:0: => Caja
-
-2:47 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:24: => Cliente
-		:0: => Caja
-
-2:50 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:25: => Cliente
-		:0: => Caja
-
-2:50 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:25: => Cliente
-		:0: => Caja
-
-2:54 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:26: => Cliente
-		:0: => Caja
-
-2:54 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:26: => Cliente
-		:0: => Caja
-
-2:57 => Un cliente termina de usar una terminal
-		:1: => Tipo de evento
-		:25: => Cliente
-		:0: => Caja
-
-2:57 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:25: => Cliente
-		:0: => Caja
-
-2:58 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:24: => Cliente
-		:0: => Caja
-
-2:58 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:26: => Cliente
-		:0: => Caja
-
-3:0 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:27: => Cliente
-		:0: => Caja
-
-3:0 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:27: => Cliente
-		:0: => Caja
-
-3:1 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:26: => Cliente
-		:0: => Caja
-
-3:1 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:25: => Cliente
-		:0: => Caja
-
-3:4 => Un cliente termina de usar una terminal
-		:1: => Tipo de evento
-		:27: => Cliente
-		:0: => Caja
-
-3:4 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:27: => Cliente
-		:0: => Caja
-
-3:9 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:28: => Cliente
-		:0: => Caja
-
-3:9 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:28: => Cliente
-		:0: => Caja
-
-3:13 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:25: => Cliente
-		:0: => Caja
-
-3:13 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:27: => Cliente
-		:0: => Caja
-
-3:14 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:29: => Cliente
-		:0: => Caja
-
-3:14 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:29: => Cliente
-		:0: => Caja
-
-3:15 => Un cliente termina de usar una terminal
-		:1: => Tipo de evento
-		:28: => Cliente
-		:0: => Caja
-
-3:15 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:28: => Cliente
-		:0: => Caja
-
-3:19 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:27: => Cliente
-		:0: => Caja
-
-3:19 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:29: => Cliente
-		:0: => Caja
-
-3:23 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:30: => Cliente
-		:0: => Caja
-
-3:23 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:30: => Cliente
-		:0: => Caja
-
-3:25 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:29: => Cliente
-		:0: => Caja
-
-3:25 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:28: => Cliente
-		:0: => Caja
-
-3:28 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:31: => Cliente
-		:0: => Caja
-
-3:28 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:31: => Cliente
-		:0: => Caja
-
-3:31 => Un cliente termina de usar una terminal
-		:1: => Tipo de evento
-		:30: => Cliente
-		:0: => Caja
-
-3:31 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:30: => Cliente
-		:0: => Caja
-
-3:36 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:32: => Cliente
-		:0: => Caja
-
-3:36 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:32: => Cliente
-		:0: => Caja
-
-3:36 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:28: => Cliente
-		:0: => Caja
-
-3:36 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:31: => Cliente
-		:0: => Caja
-
-3:37 => Un cliente termina de usar una terminal
-		:1: => Tipo de evento
-		:32: => Cliente
-		:0: => Caja
-
-3:37 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:32: => Cliente
-		:0: => Caja
-
-3:43 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:33: => Cliente
-		:0: => Caja
-
-3:43 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:33: => Cliente
-		:0: => Caja
-
-3:44 => Un cliente termina de usar una terminal
-		:1: => Tipo de evento
-		:33: => Cliente
-		:0: => Caja
-
-3:44 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:33: => Cliente
-		:0: => Caja
-
-3:47 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:31: => Cliente
-		:0: => Caja
-
-3:47 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:30: => Cliente
-		:0: => Caja
-
-3:52 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:34: => Cliente
-		:0: => Caja
-
-3:52 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:34: => Cliente
-		:0: => Caja
-
-3:59 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:35: => Cliente
-		:0: => Caja
-
-3:59 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:35: => Cliente
-		:0: => Caja
-
-4:1 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:30: => Cliente
-		:0: => Caja
-
-4:1 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:32: => Cliente
-		:0: => Caja
-
-4:2 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:36: => Cliente
-		:0: => Caja
-
-4:2 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:36: => Cliente
-		:0: => Caja
-
-4:5 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:37: => Cliente
-		:0: => Caja
-
-4:5 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:37: => Cliente
-		:0: => Caja
-
-4:9 => Un cliente termina de usar una terminal
-		:1: => Tipo de evento
-		:35: => Cliente
-		:0: => Caja
-
-4:9 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:35: => Cliente
-		:0: => Caja
-
-4:10 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:38: => Cliente
-		:0: => Caja
-
-4:10 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:38: => Cliente
-		:0: => Caja
-
-4:13 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:32: => Cliente
-		:0: => Caja
-
-4:13 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:33: => Cliente
-		:0: => Caja
-
-4:19 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:33: => Cliente
-		:0: => Caja
-
-4:19 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:34: => Cliente
-		:0: => Caja
-
-4:19 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:34: => Cliente
-		:0: => Caja
-
-4:20 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:39: => Cliente
-		:0: => Caja
-
-4:20 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:39: => Cliente
-		:0: => Caja
-
-4:26 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:40: => Cliente
-		:0: => Caja
-
-4:26 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:40: => Cliente
-		:0: => Caja
-
-4:27 => Un cliente termina de usar una terminal
-		:1: => Tipo de evento
-		:39: => Cliente
-		:0: => Caja
-
-4:27 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:39: => Cliente
-		:0: => Caja
-
-4:35 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:41: => Cliente
-		:0: => Caja
-
-4:35 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:41: => Cliente
-		:0: => Caja
-
-4:39 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:42: => Cliente
-		:0: => Caja
-
-4:39 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:42: => Cliente
-		:0: => Caja
-
-4:45 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:43: => Cliente
-		:0: => Caja
-
-4:45 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:43: => Cliente
-		:0: => Caja
-
-4:46 => Un cliente termina de usar una terminal
-		:1: => Tipo de evento
-		:41: => Cliente
-		:0: => Caja
-
-4:46 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:41: => Cliente
-		:0: => Caja
-
-4:53 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:44: => Cliente
-		:0: => Caja
-
-4:53 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:44: => Cliente
-		:0: => Caja
-
-4:59 => Un cliente termina de usar una terminal
-		:1: => Tipo de evento
-		:44: => Cliente
-		:0: => Caja
-
-4:59 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:44: => Cliente
-		:0: => Caja
-
-5:3 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:45: => Cliente
-		:0: => Caja
-
-5:3 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:45: => Cliente
-		:0: => Caja
-
-5:10 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:46: => Cliente
-		:0: => Caja
-
-5:10 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:46: => Cliente
-		:0: => Caja
-
-5:13 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:47: => Cliente
-		:0: => Caja
-
-5:13 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:47: => Cliente
-		:0: => Caja
-
-5:23 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:48: => Cliente
-		:0: => Caja
-
-5:23 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:48: => Cliente
-		:0: => Caja
-
-5:28 => Un cliente termina de usar una terminal
-		:1: => Tipo de evento
-		:48: => Cliente
-		:0: => Caja
-
-5:28 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:48: => Cliente
-		:0: => Caja
-
-5:31 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:49: => Cliente
-		:0: => Caja
-
-5:31 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:49: => Cliente
-		:0: => Caja
-
-5:31 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:49: => Cliente
-		:0: => Caja
-
-5:37 => Un cliente termina de usar una terminal
-		:1: => Tipo de evento
-		:49: => Cliente
-		:0: => Caja
-
-5:37 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:49: => Cliente
-		:0: => Caja
-
-0:0 => ############################################################
-0:0 => ############################################################Se ha producido un error. Contáctese con los desarrolladores
-0:0 => ############################################################Se ha producido un error. Contáctese con los desarrolladores############################################################
-		:6: => Tipo de evento
-		:0: => Cliente
-		:0: => Caja
+############################################################
+Se ha producido un error. Contáctese con los desarrolladores
+############################################################
+	   en System.ThrowHelper.ThrowArgumentOutOfRangeException()
+   en System.Collections.Generic.List`1.get_Item(Int32 index)
+   en ModelosTP.Form1.bComenzar_Click(Object sender, EventArgs e) en D:\Data\UAP\4º Sistemas\Modelos y simulaciones\ModelosTP\ModelosTP\Form1.cs:línea 65
 

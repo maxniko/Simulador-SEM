@@ -44,16 +44,22 @@
             this.cantidadTerminales = new System.Windows.Forms.NumericUpDown();
             this.cantidadCajas = new System.Windows.Forms.NumericUpDown();
             this.horasSimulacion = new System.Windows.Forms.NumericUpDown();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tiempoLlegadaClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tiempoUsoTerminalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tiempoAtenciónCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cantidadTerminales)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cantidadCajas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.horasSimulacion)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // bComenzar
             // 
-            this.bComenzar.Location = new System.Drawing.Point(398, 166);
+            this.bComenzar.Location = new System.Drawing.Point(406, 231);
             this.bComenzar.Name = "bComenzar";
             this.bComenzar.Size = new System.Drawing.Size(75, 23);
             this.bComenzar.TabIndex = 0;
@@ -63,7 +69,7 @@
             // 
             // bDetener
             // 
-            this.bDetener.Location = new System.Drawing.Point(317, 166);
+            this.bDetener.Location = new System.Drawing.Point(325, 231);
             this.bDetener.Name = "bDetener";
             this.bDetener.Size = new System.Drawing.Size(75, 23);
             this.bDetener.TabIndex = 1;
@@ -106,7 +112,7 @@
             this.groupBox1.Controls.Add(this.rTiempoEsperaMaximoCajas);
             this.groupBox1.Controls.Add(this.rTiempoEsperaPromedioCajas);
             this.groupBox1.Controls.Add(this.rColaMaximaTerminales);
-            this.groupBox1.Location = new System.Drawing.Point(153, 12);
+            this.groupBox1.Location = new System.Drawing.Point(153, 73);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(378, 148);
             this.groupBox1.TabIndex = 5;
@@ -175,7 +181,7 @@
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Location = new System.Drawing.Point(12, 12);
+            this.groupBox2.Location = new System.Drawing.Point(12, 73);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(126, 148);
             this.groupBox2.TabIndex = 6;
@@ -248,15 +254,58 @@
             0,
             0});
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(543, 24);
+            this.menuStrip1.TabIndex = 7;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // menuToolStripMenuItem
+            // 
+            this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tiempoLlegadaClienteToolStripMenuItem,
+            this.tiempoUsoTerminalToolStripMenuItem,
+            this.tiempoAtenciónCajaToolStripMenuItem});
+            this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
+            this.menuToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
+            this.menuToolStripMenuItem.Text = "Parámetros";
+            // 
+            // tiempoLlegadaClienteToolStripMenuItem
+            // 
+            this.tiempoLlegadaClienteToolStripMenuItem.Name = "tiempoLlegadaClienteToolStripMenuItem";
+            this.tiempoLlegadaClienteToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.tiempoLlegadaClienteToolStripMenuItem.Text = "Tiempo llegada cliente";
+            this.tiempoLlegadaClienteToolStripMenuItem.Click += new System.EventHandler(this.tiempoLlegadaClienteToolStripMenuItem_Click);
+            // 
+            // tiempoUsoTerminalToolStripMenuItem
+            // 
+            this.tiempoUsoTerminalToolStripMenuItem.Name = "tiempoUsoTerminalToolStripMenuItem";
+            this.tiempoUsoTerminalToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.tiempoUsoTerminalToolStripMenuItem.Text = "Tiempo uso terminal";
+            this.tiempoUsoTerminalToolStripMenuItem.Click += new System.EventHandler(this.tiempoUsoTerminalToolStripMenuItem_Click);
+            // 
+            // tiempoAtenciónCajaToolStripMenuItem
+            // 
+            this.tiempoAtenciónCajaToolStripMenuItem.Name = "tiempoAtenciónCajaToolStripMenuItem";
+            this.tiempoAtenciónCajaToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.tiempoAtenciónCajaToolStripMenuItem.Text = "Tiempo atención caja";
+            this.tiempoAtenciónCajaToolStripMenuItem.Click += new System.EventHandler(this.tiempoAtenciónCajaToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(543, 206);
+            this.ClientSize = new System.Drawing.Size(543, 266);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.bDetener);
             this.Controls.Add(this.bComenzar);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Simulador SEM";
             this.groupBox1.ResumeLayout(false);
@@ -266,7 +315,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.cantidadTerminales)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cantidadCajas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.horasSimulacion)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -288,6 +340,11 @@
         private System.Windows.Forms.Label rTiempoTramiteCliente;
         private System.Windows.Forms.NumericUpDown cantidadCajas;
         private System.Windows.Forms.NumericUpDown cantidadTerminales;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem menuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tiempoLlegadaClienteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tiempoUsoTerminalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tiempoAtenciónCajaToolStripMenuItem;
     }
 }
 

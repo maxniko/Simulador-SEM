@@ -1,120 +1,195 @@
 =======================   LOG DEL SIMULADOR SEM   =======================
 
 
-0:11 => Llega un cliente al sistema
+0:9 => Llega un cliente al sistema
 		:0: => Tipo de evento
 		:0: => Cliente
 		:0: => Caja
+		:Número evento :0:: => Mensaje
 
-0:11 => Un cliente comienza a ser atendido
+0:9 => Un cliente comienza a ser atendido
 		:4: => Tipo de evento
 		:0: => Cliente
 		:0: => Caja
+		:Evento dependiente: => Mensaje
 
-0:12 => Llega un cliente al sistema
+0:13 => Llega un cliente al sistema
 		:0: => Tipo de evento
 		:1: => Cliente
 		:0: => Caja
+		:Número evento :1:: => Mensaje
 
-0:12 => Un cliente comienza a usar una terminal
+0:13 => Un cliente comienza a usar una terminal
 		:3: => Tipo de evento
 		:1: => Cliente
 		:0: => Caja
+		:Evento dependiente: => Mensaje
 
-0:15 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:2: => Cliente
-		:0: => Caja
-
-0:15 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:2: => Cliente
-		:0: => Caja
-
-0:16 => Un cliente termina de usar una terminal
+0:18 => Un cliente termina de usar una terminal
 		:1: => Tipo de evento
 		:1: => Cliente
 		:0: => Caja
+		:Número evento :2:: => Mensaje
 
-0:16 => Un cliente comienza a esperar en la cola para una caja
+0:18 => Un cliente comienza a esperar en la cola para una caja
 		:5: => Tipo de evento
 		:1: => Cliente
 		:0: => Caja
+		:Evento dependiente: => Mensaje
 
-0:20 => Llega un cliente al sistema
-		:0: => Tipo de evento
-		:3: => Cliente
+0:20 => Un cliente termina de ser atendido por la caja (y se va)
+		:2: => Tipo de evento
+		:0: => Cliente
 		:0: => Caja
+		:Número evento :3:: => Mensaje
 
-0:20 => Un cliente comienza a usar una terminal
-		:3: => Tipo de evento
-		:3: => Cliente
+0:20 => Un cliente comienza a ser atendido
+		:4: => Tipo de evento
+		:1: => Cliente
 		:0: => Caja
-
-0:23 => Un cliente termina de usar una terminal
-		:1: => Tipo de evento
-		:3: => Cliente
-		:0: => Caja
-
-0:23 => Un cliente comienza a esperar en la cola para una caja
-		:5: => Tipo de evento
-		:3: => Cliente
-		:0: => Caja
+		:Evento dependiente de atender Cliente: => Mensaje
 
 0:25 => Llega un cliente al sistema
 		:0: => Tipo de evento
-		:4: => Cliente
+		:2: => Cliente
 		:0: => Caja
+		:Número evento :4:: => Mensaje
 
 0:25 => Un cliente comienza a esperar en la cola para una caja
 		:5: => Tipo de evento
+		:2: => Cliente
+		:0: => Caja
+		:Evento dependiente: => Mensaje
+
+0:33 => Llega un cliente al sistema
+		:0: => Tipo de evento
+		:3: => Cliente
+		:0: => Caja
+		:Número evento :5:: => Mensaje
+
+0:33 => Un cliente comienza a usar una terminal
+		:3: => Tipo de evento
+		:3: => Cliente
+		:0: => Caja
+		:Evento dependiente: => Mensaje
+
+0:34 => Un cliente termina de usar una terminal
+		:1: => Tipo de evento
+		:3: => Cliente
+		:0: => Caja
+		:Número evento :6:: => Mensaje
+
+0:34 => Un cliente comienza a esperar en la cola para una caja
+		:5: => Tipo de evento
+		:3: => Cliente
+		:0: => Caja
+		:Evento dependiente: => Mensaje
+
+0:34 => Un cliente termina de ser atendido por la caja (y se va)
+		:2: => Tipo de evento
+		:1: => Cliente
+		:0: => Caja
+		:Número evento :7:: => Mensaje
+
+0:34 => Un cliente comienza a ser atendido
+		:4: => Tipo de evento
+		:2: => Cliente
+		:0: => Caja
+		:Evento dependiente de atender Cliente: => Mensaje
+
+0:38 => Llega un cliente al sistema
+		:0: => Tipo de evento
 		:4: => Cliente
 		:0: => Caja
+		:Número evento :8:: => Mensaje
 
-0:25 => Un cliente comienza a esperar en la cola para una caja
+0:38 => Un cliente comienza a usar una terminal
+		:3: => Tipo de evento
+		:4: => Cliente
+		:0: => Caja
+		:Evento dependiente: => Mensaje
+
+0:39 => Un cliente termina de usar una terminal
+		:1: => Tipo de evento
+		:4: => Cliente
+		:0: => Caja
+		:Número evento :9:: => Mensaje
+
+0:39 => Un cliente comienza a esperar en la cola para una caja
 		:5: => Tipo de evento
 		:4: => Cliente
 		:0: => Caja
+		:Evento dependiente: => Mensaje
 
-0:25 => Un cliente termina de ser atendido por la caja (y se va)
+0:42 => Un cliente termina de ser atendido por la caja (y se va)
 		:2: => Tipo de evento
-		:0: => Cliente
+		:2: => Cliente
 		:0: => Caja
+		:Número evento :10:: => Mensaje
 
-0:25 => Un cliente comienza a ser atendido
-		:4: => Tipo de evento
-		:1: => Cliente
-		:0: => Caja
-
-0:38 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:1: => Cliente
-		:0: => Caja
-
-0:38 => Un cliente comienza a ser atendido
+0:42 => Un cliente comienza a ser atendido
 		:4: => Tipo de evento
 		:3: => Cliente
 		:0: => Caja
+		:Evento dependiente de atender Cliente: => Mensaje
 
-0:45 => Un cliente termina de ser atendido por la caja (y se va)
+0:47 => Llega un cliente al sistema
+		:0: => Tipo de evento
+		:5: => Cliente
+		:0: => Caja
+		:Número evento :11:: => Mensaje
+
+0:47 => Un cliente comienza a usar una terminal
+		:3: => Tipo de evento
+		:5: => Cliente
+		:0: => Caja
+		:Evento dependiente: => Mensaje
+
+0:55 => Un cliente termina de usar una terminal
+		:1: => Tipo de evento
+		:5: => Cliente
+		:0: => Caja
+		:Número evento :12:: => Mensaje
+
+0:55 => Un cliente comienza a esperar en la cola para una caja
+		:5: => Tipo de evento
+		:5: => Cliente
+		:0: => Caja
+		:Evento dependiente: => Mensaje
+
+0:56 => Un cliente termina de ser atendido por la caja (y se va)
 		:2: => Tipo de evento
 		:3: => Cliente
 		:0: => Caja
+		:Número evento :13:: => Mensaje
 
-0:45 => Un cliente comienza a ser atendido
+0:56 => Un cliente comienza a ser atendido
 		:4: => Tipo de evento
 		:4: => Cliente
 		:0: => Caja
+		:Evento dependiente de atender Cliente: => Mensaje
 
-0:53 => Un cliente termina de ser atendido por la caja (y se va)
-		:2: => Tipo de evento
-		:4: => Cliente
+0:57 => Llega un cliente al sistema
+		:0: => Tipo de evento
+		:6: => Cliente
 		:0: => Caja
+		:Número evento :14:: => Mensaje
 
-############################################################
-Se ha producido un error. Contáctese con los desarrolladores
-############################################################
-	   en System.ThrowHelper.ThrowArgumentOutOfRangeException()
-   en System.Collections.Generic.List`1.get_Item(Int32 index)
-   en ModelosTP.Form1.bComenzar_Click(Object sender, EventArgs e) en D:\Data\UAP\4º Sistemas\Modelos y simulaciones\ModelosTP\ModelosTP\Form1.cs:línea 65
+0:57 => Un cliente comienza a usar una terminal
+		:3: => Tipo de evento
+		:6: => Cliente
+		:0: => Caja
+		:Evento dependiente: => Mensaje
+
+1:4 => Un cliente termina de usar una terminal
+		:1: => Tipo de evento
+		:6: => Cliente
+		:0: => Caja
+		:Número evento :15:: => Mensaje
+
+1:4 => Un cliente comienza a esperar en la cola para una caja
+		:5: => Tipo de evento
+		:6: => Cliente
+		:0: => Caja
+		:Evento dependiente: => Mensaje
 

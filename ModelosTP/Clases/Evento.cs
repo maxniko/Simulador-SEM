@@ -11,10 +11,15 @@ namespace ModelosTP.Clases
         private int tipoEvento = 0;
         //private int idCliente = 0;
         //private int tipoCaja = 0;
-        private Cliente cliente = new Cliente(-1);        
+        private Cliente cliente;
         private int idCaja = 0;
         private Terminal terminal = null;
         private string mensaje;
+
+        public Evento()
+        {
+            cliente = new Cliente(-1);
+        }
 
         public int HoraEjecucionAbsoluta
         {

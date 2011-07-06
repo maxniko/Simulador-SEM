@@ -18,6 +18,9 @@ namespace ModelosTP.Clases
         {
         }
 
+        /// <summary>
+        /// Momento en que el cliente llega a esperar en la cola para la caja
+        /// </summary>
         public int TiempoEsperaCaja
         {
             get { return tiempoEsperaCaja; }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using ModelosTP.Clases;
+using ModelosTP.Formularios;
 using System.IO;
 
 namespace ModelosTP
@@ -29,7 +30,26 @@ namespace ModelosTP
         private List<Terminal> terminales = new List<Terminal>();
         private List<Cliente> colaTerminales = new List<Cliente>();
         private int clientesEnBanco = 0;
-        private int numeroEvento = 0;
+        private int numeroEvento = -1;
+        private int ultimoEventoEjecutado = 0;
+
+        #region parámetros estadísticos
+        public double mediaLlegadaCliente = 7.08;
+        private double desviacionLlegadaCliente = 2.78;
+        private double modaLlegadaCliente = 0.14;
+        private double limiteInferiorLlegadaCliente = 0;
+        private double limiteSuperiorLlegadaCliente = 14;
+
+        private double modaUsoTerminal = 0.09;
+        
+        private double mediaAtencionCaja = 9.9;
+        private double desviacionAtencionCaja = 3.56;
+        private double modaAtencionCaja = 0.11;
+        private double limiteInferiorAtencionCaja = 1;
+        private double limiteSuperiorAtencionCaja = 18;
+
+        #endregion
+
         #endregion
 
         public Form1()
@@ -39,10 +59,12 @@ namespace ModelosTP
 
         private void bComenzar_Click(object sender, EventArgs e)
         {
+            
             bDetener_Click(sender, e);
             bloquear();
             generarLog();
-            numeroEvento = 0;
+            //numeroEvento = -1;
+            ultimoEventoEjecutado = 0;
 
             for (int i = 0; i < cantidadCajas.Value; i++)
             {
@@ -62,10 +84,13 @@ namespace ModelosTP
                 try
                 {
                     //La línea del mal...
-                    Evento ev = eventos[numeroEvento];
-
+                    //Evento ev = eventos[numeroEvento];
+                    Evento ev = eventos[ultimoEventoEjecutado];
+                    //ev.Mensaje = "Numero evento :" + numeroEvento + ":";
+                    ev.Mensaje = "Número evento :" + ultimoEventoEjecutado + ":";
+                    ultimoEventoEjecutado++;
                     loguear(ev);
-                    numeroEvento++;
+                    //numeroEvento++;
                     switch (ev.TipoEvento)
                     {
                         case 0:
@@ -81,12 +106,14 @@ namespace ModelosTP
                             break;
                     }
                     calcularTiempoOcioso();
+
+                   
                 }
                 catch (Exception exc)
                 {
                     Evento kjh = new Evento();
                     kjh.TipoEvento = 6;
-                    kjh.Mensaje = exc.StackTrace;
+                    kjh.Mensaje = exc.StackTrace + " " + exc.Message;
                     loguear(kjh);
                     MessageBox.Show("Ud. se ha comunicado con el centro de atención al suicida.\n" +
                                     "Por favor, aguarde un momento y será atendido por uno de nuestros operadores.\n" +
@@ -125,7 +152,8 @@ namespace ModelosTP
         private void planificarLlegadaCliente()
         {
             Evento e = new Evento();
-            e.HoraEjecucionAbsoluta = TiempoSimulacion + generarXNormal(7.08, 2.78, 0.14, 0, 14);
+            //e.HoraEjecucionAbsoluta = TiempoSimulacion + generarXNormal(7.08, 2.78, 0.14, 0, 14);
+            e.HoraEjecucionAbsoluta = TiempoSimulacion + generarXNormal(mediaLlegadaCliente, desviacionLlegadaCliente, modaLlegadaCliente, limiteInferiorLlegadaCliente, limiteSuperiorLlegadaCliente);
             e.TipoEvento = 0;
             Cliente c = new Cliente();
             c.IdCliente = clientesEnBanco;
@@ -169,7 +197,6 @@ namespace ModelosTP
         /// <param name="e"></param>
         private Evento ocuparCaja(Evento e)
         {
-
             if (cajas[e.IdCaja].Estado == 0)
             {
                 calcularTiempoOcioso();
@@ -183,14 +210,15 @@ namespace ModelosTP
                     TiempoMaximoEsperaEnColaCaja = aux;
                 }
                 e.TipoEvento = 4;
+                e.Mensaje = "Evento dependiente";
                 loguear(e);
             }
             else
             {
-
                 e.Cliente.TiempoEsperaCaja = TiempoSimulacion;
                 cajas[e.IdCaja].ColaClientes.Add(e.Cliente);
                 e.TipoEvento = 5;
+                e.Mensaje = "Evento dependiente";
                 loguear(e);
             }
             return e;
@@ -201,48 +229,42 @@ namespace ModelosTP
         /// <param name="e"></param>
         private void terminarAtencCaja(Evento e)
         {
-
             TiempoSimulacion = e.HoraEjecucionAbsoluta;
             // variable para ahorrar calculos si hay o no cola
-            bool hayCola = false; 
+            bool hayCola = false;
+            //Si hay cola en la caja
+            if (cajas[e.IdCaja].ColaClientes.Count > 0)
+            {
+               //se planifica el siguiente cliente en cola 
+                planificarTiempoCaja(e.IdCaja, cajas[e.IdCaja].ColaClientes[0]);
+                //Evento ev = e;
+                e.Cliente = cajas[e.IdCaja].ColaClientes[0];
+                e.TipoEvento = 4;
+                e.Mensaje = "Evento dependiente de atender Cliente";
+                loguear(e);
+                hayCola = true;
+            }
+            else
+            {
+                cajas[e.IdCaja].Estado = 0;
+                cajas[e.IdCaja].TiempoInactivo = TiempoSimulacion;
+                
+            }
+            //Se contabiliza un cliente atendido (para el total)
+            totalClientesAtendidos++;
+            //Se suma el total del tiempo que estuvo el cliente en el banco a un totalizador de dicho tiempo :)
+            TiempoPermanenciaCliente += (TiempoSimulacion - cajas[e.IdCaja].ClienteQueSeAtiende.HoraLlegada);
+            //El cliente que se está antendiendo FINALMENTE se fue.
+            cajas[e.IdCaja].ClienteQueSeAtiende = null;
+            //Se contabiliza un cliente atendido (para esta caja)
+            cajas[e.IdCaja].VecesUtilizada += 1;
 
-            //if (cajas[e.IdCaja].ColaClientes.Count > 0)
-            //{
-                if (cajas[e.IdCaja].ColaClientes.Count > 0)
-                {
-                   //se planifica el siguiente cliente en cola 
-                    planificarTiempoCaja(e.IdCaja, cajas[e.IdCaja].ColaClientes[0]);
-                    Evento ev = e;
-                    ev.Cliente = cajas[e.IdCaja].ColaClientes[0];
-                    ev.TipoEvento = 4;
-                    loguear(ev);
-                    hayCola = true;
-                }
-                else
-                {
-                    cajas[e.IdCaja].Estado = 0;
-                    cajas[e.IdCaja].TiempoInactivo = TiempoSimulacion;
-                    
-                }
-                TiempoPermanenciaCliente += (TiempoSimulacion - cajas[e.IdCaja].ClienteQueSeAtiende.HoraLlegada);
-                //Se contabiliza un cliente atendido (para el total)
-                totalClientesAtendidos++;
-                //El cliente que se está antendiendo FINALMENTE se fue.
-                cajas[e.IdCaja].ClienteQueSeAtiende = null;
-                //si hay cola se supone que atiende al siguiente
-                if (hayCola == true)
-                {
-                    cajas[e.IdCaja].ClienteQueSeAtiende = cajas[e.IdCaja].ColaClientes[0];
-                    cajas[e.IdCaja].ColaClientes.RemoveAt(0);
-                }
-                //Se contabiliza un cliente atendido (para esta caja)
-                cajas[e.IdCaja].VecesUtilizada++;
-            //}
-            //else
-            //{
-            //    cajas[e.IdCaja].Estado = 0;
-            //    cajas[e.IdCaja].TiempoInactivo = TiempoSimulacion;
-            //}
+            //si hay cola se supone que atiende al siguiente
+            if (hayCola == true)
+            {
+                cajas[e.IdCaja].ClienteQueSeAtiende = cajas[e.IdCaja].ColaClientes[0];
+                cajas[e.IdCaja].ColaClientes.RemoveAt(0);
+            }
         }
 
         /// <summary>
@@ -268,6 +290,7 @@ namespace ModelosTP
                 }
             }
             e.TipoEvento = 3;
+            e.Mensaje = "Evento dependiente";
             loguear(e);
         }
 
@@ -299,7 +322,8 @@ namespace ModelosTP
         private void planificarTiempoCaja(int nroCaja, Cliente c)
         {
             Evento e = new Evento();
-            e.HoraEjecucionAbsoluta = TiempoSimulacion + generarXNormal(9.9, 3.56, 0.11, 1, 18);
+            //e.HoraEjecucionAbsoluta = TiempoSimulacion + generarXNormal(9.9, 3.56, 0.11, 1, 18);
+            e.HoraEjecucionAbsoluta = TiempoSimulacion + generarXNormal(mediaAtencionCaja, desviacionAtencionCaja, modaAtencionCaja, limiteInferiorAtencionCaja, limiteSuperiorAtencionCaja);
             e.TipoEvento = 2; //salida de un cliente (terminó de usar) de la caja
             e.IdCaja = nroCaja;
             e.Cliente = c;
@@ -312,7 +336,7 @@ namespace ModelosTP
         private void planificarUsoTerminal(Terminal t)
         {
             Evento e = new Evento();
-            e.HoraEjecucionAbsoluta = TiempoSimulacion + generarXUniforme(0.09);
+            e.HoraEjecucionAbsoluta = TiempoSimulacion + generarXUniforme(modaUsoTerminal);
             e.TipoEvento = 1;
             e.Cliente = t.Cliente;
             insertarEvento(e);
@@ -388,7 +412,7 @@ namespace ModelosTP
             terminales.Clear();
             colaTerminales.Clear();
             clientesEnBanco = 0;
-            numeroEvento = 0;
+            numeroEvento = -1;
             
             rColaMaximaTerminales.Text = "Tamaño máximo de la cola en terminales: 0";
             rTiempoEsperaPromedioCajas.Text = "Tiempo de espera promedio en la cola de las cajas: 0";
@@ -486,6 +510,7 @@ namespace ModelosTP
                     if (eNuevo.HoraEjecucionAbsoluta > e.HoraEjecucionAbsoluta)
                     {
                         eventos.Insert(indice + 1, eNuevo);
+                        numeroEvento++;
                         ok = true;
                     }
                     indice--;
@@ -493,6 +518,7 @@ namespace ModelosTP
                 else
                 {
                     eventos.Add(eNuevo);
+                    numeroEvento++;
                     ok = true;
                 }
             } while (ok == false);
@@ -517,6 +543,7 @@ namespace ModelosTP
                     writer.WriteLine("\t\t:" + e.TipoEvento + ": => Tipo de evento");
                     writer.WriteLine("\t\t:" + e.Cliente.IdCliente + ": => Cliente");
                     writer.WriteLine("\t\t:" + e.IdCaja + ": => Caja");
+                    writer.WriteLine("\t\t:" + e.Mensaje + ": => Mensaje");
                     writer.WriteLine();
                     break;
                 case 1:
@@ -524,6 +551,7 @@ namespace ModelosTP
                     writer.WriteLine("\t\t:" + e.TipoEvento + ": => Tipo de evento");
                     writer.WriteLine("\t\t:" + e.Cliente.IdCliente + ": => Cliente");
                     writer.WriteLine("\t\t:" + e.IdCaja + ": => Caja");
+                    writer.WriteLine("\t\t:" + e.Mensaje + ": => Mensaje");
                     writer.WriteLine();
                     break;
                 case 2:
@@ -531,6 +559,7 @@ namespace ModelosTP
                     writer.WriteLine("\t\t:" + e.TipoEvento + ": => Tipo de evento");
                     writer.WriteLine("\t\t:" + e.Cliente.IdCliente + ": => Cliente");
                     writer.WriteLine("\t\t:" + e.IdCaja + ": => Caja");
+                    writer.WriteLine("\t\t:" + e.Mensaje + ": => Mensaje");
                     writer.WriteLine();
                     break;
                 case 3:
@@ -538,6 +567,7 @@ namespace ModelosTP
                     writer.WriteLine("\t\t:" + e.TipoEvento + ": => Tipo de evento");
                     writer.WriteLine("\t\t:" + e.Cliente.IdCliente + ": => Cliente");
                     writer.WriteLine("\t\t:" + e.IdCaja + ": => Caja");
+                    writer.WriteLine("\t\t:" + e.Mensaje + ": => Mensaje");
                     writer.WriteLine();
                     break;
                 case 4:
@@ -545,6 +575,7 @@ namespace ModelosTP
                     writer.WriteLine("\t\t:" + e.TipoEvento + ": => Tipo de evento");
                     writer.WriteLine("\t\t:" + e.Cliente.IdCliente + ": => Cliente");
                     writer.WriteLine("\t\t:" + e.IdCaja + ": => Caja");
+                    writer.WriteLine("\t\t:" + e.Mensaje + ": => Mensaje");
                     writer.WriteLine();
                     break;
                 case 5:
@@ -552,6 +583,7 @@ namespace ModelosTP
                     writer.WriteLine("\t\t:" + e.TipoEvento + ": => Tipo de evento");
                     writer.WriteLine("\t\t:" + e.Cliente.IdCliente + ": => Cliente");
                     writer.WriteLine("\t\t:" + e.IdCaja + ": => Caja");
+                    writer.WriteLine("\t\t:" + e.Mensaje + ": => Mensaje");
                     writer.WriteLine();
                     break;
                 case 6:
@@ -567,6 +599,7 @@ namespace ModelosTP
                     writer.WriteLine("\t\t:" + e.TipoEvento + ": => Tipo de evento");
                     writer.WriteLine("\t\t:" + e.Cliente.IdCliente + ": => Cliente");
                     writer.WriteLine("\t\t:" + e.IdCaja + ": => Caja");
+                    writer.WriteLine("\t\t:" + e.Mensaje + ": => Mensaje");
                     writer.WriteLine();
                     break;
             }
@@ -607,6 +640,51 @@ namespace ModelosTP
             cantidadCajas.Enabled = true;
             cantidadTerminales.Enabled = true;
             horasSimulacion.Enabled = true;
+        }
+        #endregion
+
+        #region Setters de parámetros
+        /// <summary>
+        /// Para cambiar los parámetros estadísticos de tiempos de llegada de clientes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tiempoLlegadaClienteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ParametrosLlegadaCliente p = new ParametrosLlegadaCliente(mediaLlegadaCliente, desviacionLlegadaCliente, modaLlegadaCliente, limiteInferiorLlegadaCliente, limiteSuperiorLlegadaCliente);
+            p.ShowDialog();
+            mediaLlegadaCliente = p.media;
+            desviacionLlegadaCliente = p.desviacion;
+            modaLlegadaCliente = p.moda;
+            limiteSuperiorLlegadaCliente = p.limiteInferior;
+            limiteSuperiorLlegadaCliente = p.limiteSuperior;
+        }
+
+        /// <summary>
+        /// Para cambiar los parámetros estadísticos de tiempos de atención de una caja
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tiempoAtenciónCajaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ParametrosAtencionCaja p = new ParametrosAtencionCaja(mediaAtencionCaja, desviacionAtencionCaja, modaAtencionCaja, limiteInferiorAtencionCaja, limiteSuperiorAtencionCaja);
+            p.ShowDialog();
+            mediaAtencionCaja = p.media;
+            desviacionAtencionCaja = p.desviacion;
+            modaAtencionCaja = p.moda;
+            limiteInferiorAtencionCaja = p.limiteInferior;
+            limiteSuperiorAtencionCaja = p.limiteSuperior;
+        }
+
+        /// <summary>
+        /// Para cambiar los parámetros estadísticos de tiempos de uso de una terminal
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tiempoUsoTerminalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ParametrosUsoTerminal p = new ParametrosUsoTerminal(modaUsoTerminal);
+            modaUsoTerminal = p.moda;
         }
         #endregion
     }

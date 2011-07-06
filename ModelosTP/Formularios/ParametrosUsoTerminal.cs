@@ -13,7 +13,7 @@ namespace ModelosTP.Formularios
     {
         public double moda;
 
-        public ParametrosUsoTerminal()
+        public ParametrosUsoTerminal(double moda)
         {
             InitializeComponent();
             numericUpDown3.Value = Decimal.Parse(moda.ToString());

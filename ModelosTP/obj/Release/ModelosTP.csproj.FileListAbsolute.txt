@@ -7,3 +7,5 @@ D:\Data\UAP\4º Sistemas\Modelos y simulaciones\ModelosTP\ModelosTP\obj\Release\
 D:\Data\UAP\4º Sistemas\Modelos y simulaciones\ModelosTP\ModelosTP\obj\Release\ModelosTP.exe
 D:\Data\UAP\4º Sistemas\Modelos y simulaciones\ModelosTP\ModelosTP\obj\Release\ModelosTP.pdb
 D:\Data\UAP\4º Sistemas\Modelos y simulaciones\ModelosTP\ModelosTP\obj\Release\ModelosTP.Formularios.ParametrosLlegadaCliente.resources
+D:\Data\UAP\4º Sistemas\Modelos y simulaciones\ModelosTP\ModelosTP\obj\Release\ModelosTP.Formularios.ParametrosAtencionCaja.resources
+D:\Data\UAP\4º Sistemas\Modelos y simulaciones\ModelosTP\ModelosTP\obj\Release\ModelosTP.Formularios.ParametrosUsoTerminal.resources

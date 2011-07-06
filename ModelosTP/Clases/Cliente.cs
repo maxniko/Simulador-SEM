@@ -16,12 +16,13 @@ namespace ModelosTP.Clases
         }
         public Cliente(int id)
         {
+            idCliente = id;
         }
 
         /// <summary>
         /// Momento en que el cliente llega a esperar en la cola para la caja
         /// </summary>
-        public int TiempoEsperaCaja
+        public int HoraLlegadaColaCaja
         {
             get { return tiempoEsperaCaja; }
             set { tiempoEsperaCaja = value; }

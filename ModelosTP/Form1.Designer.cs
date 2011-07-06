@@ -49,6 +49,7 @@
             this.tiempoLlegadaClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tiempoUsoTerminalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tiempoAtenciónCajaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cantidadTerminales)).BeginInit();
@@ -59,7 +60,7 @@
             // 
             // bComenzar
             // 
-            this.bComenzar.Location = new System.Drawing.Point(406, 231);
+            this.bComenzar.Location = new System.Drawing.Point(454, 181);
             this.bComenzar.Name = "bComenzar";
             this.bComenzar.Size = new System.Drawing.Size(75, 23);
             this.bComenzar.TabIndex = 0;
@@ -69,7 +70,7 @@
             // 
             // bDetener
             // 
-            this.bDetener.Location = new System.Drawing.Point(325, 231);
+            this.bDetener.Location = new System.Drawing.Point(373, 181);
             this.bDetener.Name = "bDetener";
             this.bDetener.Size = new System.Drawing.Size(75, 23);
             this.bDetener.TabIndex = 1;
@@ -112,7 +113,7 @@
             this.groupBox1.Controls.Add(this.rTiempoEsperaMaximoCajas);
             this.groupBox1.Controls.Add(this.rTiempoEsperaPromedioCajas);
             this.groupBox1.Controls.Add(this.rColaMaximaTerminales);
-            this.groupBox1.Location = new System.Drawing.Point(153, 73);
+            this.groupBox1.Location = new System.Drawing.Point(153, 27);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(378, 148);
             this.groupBox1.TabIndex = 5;
@@ -181,7 +182,7 @@
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Location = new System.Drawing.Point(12, 73);
+            this.groupBox2.Location = new System.Drawing.Point(12, 27);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(126, 148);
             this.groupBox2.TabIndex = 6;
@@ -295,11 +296,19 @@
             this.tiempoAtenciónCajaToolStripMenuItem.Text = "Tiempo atención caja";
             this.tiempoAtenciónCajaToolStripMenuItem.Click += new System.EventHandler(this.tiempoAtenciónCajaToolStripMenuItem_Click);
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(12, 181);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(348, 23);
+            this.progressBar1.TabIndex = 8;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(543, 266);
+            this.ClientSize = new System.Drawing.Size(543, 212);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.bDetener);
@@ -345,6 +354,7 @@
         private System.Windows.Forms.ToolStripMenuItem tiempoLlegadaClienteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tiempoUsoTerminalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tiempoAtenciónCajaToolStripMenuItem;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }
 

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
 using ModelosTP.Clases;
 using ModelosTP.Formularios;
 using System.IO;
@@ -81,6 +82,12 @@ namespace ModelosTP
 
             while (TiempoSimulacion < horas  && ok)
             {
+                int progreso = 0;
+                progreso = 100 * TiempoSimulacion;
+                int hs = Int32.Parse(horasSimulacion.Value.ToString());
+                int minutosSimulacion = hs * 60;
+                progreso /= minutosSimulacion;
+                progressBar1.Value = progreso;
                 try
                 {
                     //La línea del mal...
@@ -111,6 +118,7 @@ namespace ModelosTP
                 }
                 catch (Exception exc)
                 {
+                    /*
                     Evento kjh = new Evento();
                     kjh.TipoEvento = 6;
                     kjh.Mensaje = exc.StackTrace + " " + exc.Message;
@@ -119,7 +127,9 @@ namespace ModelosTP
                                     "Por favor, aguarde un momento y será atendido por uno de nuestros operadores.\n" +
                                     "No cuelgue, y no SE cuelgue.\n\n" +
                                     "Error:\n" + exc.Message);
-                    ok = false;
+                    ok = false;*/
+                    bDetener_Click(sender, e);
+                    bComenzar_Click(sender, e);
                 }
             }
             try
@@ -143,6 +153,7 @@ namespace ModelosTP
                                 "Error:\n" + exc.Message );
                 ok = false;
             }
+            progressBar1.Value = 100;
             desbloquear();
         }
 
@@ -195,16 +206,21 @@ namespace ModelosTP
         /// Un cliente comenzará a ser atendido.
         /// </summary>
         /// <param name="e"></param>
-        private Evento ocuparCaja(Evento e)
+        private void ocuparCaja(Evento e)
         {
             if (cajas[e.IdCaja].Estado == 0)
             {
-                calcularTiempoOcioso();
+                //calcularTiempoOcioso();
+                //Ocupa la caja
                 cajas[e.IdCaja].Estado = 1;
+                //Se asigna el cliente a la caja
                 cajas[e.IdCaja].ClienteQueSeAtiende = e.Cliente;
+                //Se planifica el tiempo de uso de la caja
                 planificarTiempoCaja(e.IdCaja, e.Cliente);
-
-                int aux = TiempoSimulacion - cajas[e.IdCaja].ClienteQueSeAtiende.TiempoEsperaCaja;
+                //Se calcula cuánto tiempo esperó en la cola el cliente
+                int aux = TiempoSimulacion - cajas[e.IdCaja].ClienteQueSeAtiende.HoraLlegadaColaCaja;
+                //Se suma el tiempo que esperó en la cola al total de tiempo de espera en cola
+                TiempoTotalEsperaEnColaCaja += aux;
                 if (aux > TiempoMaximoEsperaEnColaCaja)
                 {
                     TiempoMaximoEsperaEnColaCaja = aux;
@@ -215,13 +231,13 @@ namespace ModelosTP
             }
             else
             {
-                e.Cliente.TiempoEsperaCaja = TiempoSimulacion;
+                e.Cliente.HoraLlegadaColaCaja = TiempoSimulacion;
                 cajas[e.IdCaja].ColaClientes.Add(e.Cliente);
                 e.TipoEvento = 5;
                 e.Mensaje = "Evento dependiente";
                 loguear(e);
             }
-            return e;
+            //return e;
         }
         /// <summary>
         /// se ejecuta en el tipo evento 2, 
@@ -243,12 +259,12 @@ namespace ModelosTP
                 e.Mensaje = "Evento dependiente de atender Cliente";
                 loguear(e);
                 hayCola = true;
+                cajas[e.IdCaja].Estado = 1;
             }
             else
             {
-                cajas[e.IdCaja].Estado = 0;
                 cajas[e.IdCaja].TiempoInactivo = TiempoSimulacion;
-                
+                cajas[e.IdCaja].Estado = 0;
             }
             //Se contabiliza un cliente atendido (para el total)
             totalClientesAtendidos++;
@@ -311,7 +327,7 @@ namespace ModelosTP
                     cajaMenor = x;
                 }
             }
-            e.Cliente.TiempoEsperaCaja = TiempoSimulacion;
+            e.Cliente.HoraLlegadaColaCaja = TiempoSimulacion;
             e.IdCaja = cajaMenor;
             ocuparCaja(e);
         }
@@ -420,6 +436,7 @@ namespace ModelosTP
             rTiempoAcumuladoOcioso.Text = "Tiempo acumulado de cajeros ociosos: 0";
             rTiempoTramiteCliente.Text = "Tiempo promedio para trámites de un cliente: 0";
             rTotalClientes.Text = "Total de clientes atendidos: 0";
+            progressBar1.Value = 0;
         }
 
         /// <summary>
@@ -684,6 +701,7 @@ namespace ModelosTP
         private void tiempoUsoTerminalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ParametrosUsoTerminal p = new ParametrosUsoTerminal(modaUsoTerminal);
+            p.ShowDialog();
             modaUsoTerminal = p.moda;
         }
         #endregion

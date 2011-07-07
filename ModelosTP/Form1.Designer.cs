@@ -134,9 +134,9 @@
             this.rTiempoTramiteCliente.AutoSize = true;
             this.rTiempoTramiteCliente.Location = new System.Drawing.Point(6, 99);
             this.rTiempoTramiteCliente.Name = "rTiempoTramiteCliente";
-            this.rTiempoTramiteCliente.Size = new System.Drawing.Size(218, 13);
+            this.rTiempoTramiteCliente.Size = new System.Drawing.Size(263, 13);
             this.rTiempoTramiteCliente.TabIndex = 4;
-            this.rTiempoTramiteCliente.Text = "Tiempo promedio para trámites de un cliente:";
+            this.rTiempoTramiteCliente.Text = "Tiempo promedio para trámites de un cliente (minutos):";
             // 
             // rTiempoAcumuladoOcioso
             // 
@@ -152,27 +152,27 @@
             this.rTiempoEsperaMaximoCajas.AutoSize = true;
             this.rTiempoEsperaMaximoCajas.Location = new System.Drawing.Point(6, 61);
             this.rTiempoEsperaMaximoCajas.Name = "rTiempoEsperaMaximoCajas";
-            this.rTiempoEsperaMaximoCajas.Size = new System.Drawing.Size(241, 13);
+            this.rTiempoEsperaMaximoCajas.Size = new System.Drawing.Size(286, 13);
             this.rTiempoEsperaMaximoCajas.TabIndex = 2;
-            this.rTiempoEsperaMaximoCajas.Text = "Tiempo de espera máximo en la cola de las cajas:";
+            this.rTiempoEsperaMaximoCajas.Text = "Tiempo de espera máximo en la cola de las cajas (minutos):";
             // 
             // rTiempoEsperaPromedioCajas
             // 
             this.rTiempoEsperaPromedioCajas.AutoSize = true;
             this.rTiempoEsperaPromedioCajas.Location = new System.Drawing.Point(6, 41);
             this.rTiempoEsperaPromedioCajas.Name = "rTiempoEsperaPromedioCajas";
-            this.rTiempoEsperaPromedioCajas.Size = new System.Drawing.Size(249, 13);
+            this.rTiempoEsperaPromedioCajas.Size = new System.Drawing.Size(294, 13);
             this.rTiempoEsperaPromedioCajas.TabIndex = 1;
-            this.rTiempoEsperaPromedioCajas.Text = "Tiempo de espera promedio en la cola de las cajas:";
+            this.rTiempoEsperaPromedioCajas.Text = "Tiempo de espera promedio en la cola de las cajas (minutos):";
             // 
             // rColaMaximaTerminales
             // 
             this.rColaMaximaTerminales.AutoSize = true;
             this.rColaMaximaTerminales.Location = new System.Drawing.Point(6, 22);
             this.rColaMaximaTerminales.Name = "rColaMaximaTerminales";
-            this.rColaMaximaTerminales.Size = new System.Drawing.Size(201, 13);
+            this.rColaMaximaTerminales.Size = new System.Drawing.Size(246, 13);
             this.rColaMaximaTerminales.TabIndex = 0;
-            this.rColaMaximaTerminales.Text = "Tamaño máximo de la cola en terminales:";
+            this.rColaMaximaTerminales.Text = "Tamaño máximo de la cola en terminales (minutos):";
             // 
             // groupBox2
             // 

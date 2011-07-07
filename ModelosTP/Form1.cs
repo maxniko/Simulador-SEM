@@ -141,11 +141,11 @@ namespace ModelosTP
                 {
                     restarATotalCola += c.ColaClientes.Count;
                 }
-                rColaMaximaTerminales.Text = "Tamaño máximo de la cola en terminales: " + maximaColaTerminales;
-                rTiempoEsperaPromedioCajas.Text = "Tiempo de espera promedio en la cola de las cajas: " + (TiempoTotalEsperaEnColaCaja / (clientesQueEsperaron - restarATotalCola));
-                rTiempoEsperaMaximoCajas.Text = "Tiempo de espera máximo en la cola de las cajas: " + TiempoMaximoEsperaEnColaCaja;
+                rColaMaximaTerminales.Text = "Tamaño máximo de la cola en terminales (minutos): " + maximaColaTerminales;
+                rTiempoEsperaPromedioCajas.Text = "Tiempo de espera promedio en la cola de las cajas (minutos): " + (TiempoTotalEsperaEnColaCaja / (clientesQueEsperaron - restarATotalCola));
+                rTiempoEsperaMaximoCajas.Text = "Tiempo de espera máximo en la cola de las cajas (minutos): " + TiempoMaximoEsperaEnColaCaja;
                 rTiempoAcumuladoOcioso.Text = "Tiempo acumulado de cajeros ociosos: " + tiempoOcioso + " minutos (~" + (tiempoOcioso / 60) + " horas)";
-                rTiempoTramiteCliente.Text = "Tiempo promedio para trámites de un cliente: " + (TiempoPermanenciaCliente / totalClientesAtendidos).ToString();
+                rTiempoTramiteCliente.Text = "Tiempo promedio para trámites de un cliente (minutos): " + (TiempoPermanenciaCliente / totalClientesAtendidos).ToString();
                 rTotalClientes.Text = "Total de clientes atendidos: " + totalClientesAtendidos;
             }
             catch (Exception exc)
@@ -462,12 +462,12 @@ namespace ModelosTP
             numeroEvento = -1;
             clientesQueEsperaron = 0;
             salidaClienteAnterior.Clear();
-            
-            rColaMaximaTerminales.Text = "Tamaño máximo de la cola en terminales: 0";
-            rTiempoEsperaPromedioCajas.Text = "Tiempo de espera promedio en la cola de las cajas: 0";
-            rTiempoEsperaMaximoCajas.Text = "Tiempo de espera máximo en la cola de las cajas: 0";
+
+            rColaMaximaTerminales.Text = "Tamaño máximo de la cola en terminales (minutos): 0";
+            rTiempoEsperaPromedioCajas.Text = "Tiempo de espera promedio en la cola de las cajas (minutos): 0";
+            rTiempoEsperaMaximoCajas.Text = "Tiempo de espera máximo en la cola de las cajas (minutos): 0";
             rTiempoAcumuladoOcioso.Text = "Tiempo acumulado de cajeros ociosos: 0";
-            rTiempoTramiteCliente.Text = "Tiempo promedio para trámites de un cliente: 0";
+            rTiempoTramiteCliente.Text = "Tiempo promedio para trámites de un cliente (minutos): 0";
             rTotalClientes.Text = "Total de clientes atendidos: 0";
             progressBar1.Value = 0;
         }

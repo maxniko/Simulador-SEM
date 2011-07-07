@@ -206,7 +206,7 @@
             this.cantidadTerminales.Size = new System.Drawing.Size(76, 20);
             this.cantidadTerminales.TabIndex = 0;
             this.cantidadTerminales.Value = new decimal(new int[] {
-            1,
+            5,
             0,
             0,
             0});
@@ -228,7 +228,7 @@
             this.cantidadCajas.Size = new System.Drawing.Size(76, 20);
             this.cantidadCajas.TabIndex = 1;
             this.cantidadCajas.Value = new decimal(new int[] {
-            1,
+            5,
             0,
             0,
             0});
@@ -250,7 +250,7 @@
             this.horasSimulacion.Size = new System.Drawing.Size(76, 20);
             this.horasSimulacion.TabIndex = 5;
             this.horasSimulacion.Value = new decimal(new int[] {
-            1,
+            7,
             0,
             0,
             0});

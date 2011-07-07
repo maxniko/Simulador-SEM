@@ -250,7 +250,7 @@
             this.horasSimulacion.Size = new System.Drawing.Size(76, 20);
             this.horasSimulacion.TabIndex = 5;
             this.horasSimulacion.Value = new decimal(new int[] {
-            7,
+            1,
             0,
             0,
             0});

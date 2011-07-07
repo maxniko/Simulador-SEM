@@ -33,3 +33,6 @@ D:\Silvio\UAP\7mo Cuatrimestre\Modelos y Simulaciones\GIT\Simulador-SEM\ModelosT
 D:\Data\UAP\4º Sistemas\Modelos y simulaciones\ModelosTP\ModelosTP\obj\Debug\ModelosTP.Formularios.ParametrosLlegadaCliente.resources
 D:\Data\UAP\4º Sistemas\Modelos y simulaciones\ModelosTP\ModelosTP\obj\Debug\ModelosTP.Formularios.ParametrosAtencionCaja.resources
 D:\Data\UAP\4º Sistemas\Modelos y simulaciones\ModelosTP\ModelosTP\obj\Debug\ModelosTP.Formularios.ParametrosUsoTerminal.resources
+D:\Silvio\UAP\7mo Cuatrimestre\Modelos y Simulaciones\GIT\Simulador-SEM\ModelosTP\obj\Debug\ModelosTP.Formularios.ParametrosAtencionCaja.resources
+D:\Silvio\UAP\7mo Cuatrimestre\Modelos y Simulaciones\GIT\Simulador-SEM\ModelosTP\obj\Debug\ModelosTP.Formularios.ParametrosLlegadaCliente.resources
+D:\Silvio\UAP\7mo Cuatrimestre\Modelos y Simulaciones\GIT\Simulador-SEM\ModelosTP\obj\Debug\ModelosTP.Formularios.ParametrosUsoTerminal.resources

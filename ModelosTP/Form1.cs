@@ -34,6 +34,7 @@ namespace ModelosTP
         private int numeroEvento = -1;
         private int ultimoEventoEjecutado = 0;
         private int clientesQueEsperaron = 0;
+        private List<int> salidaClienteAnterior = new List<int>();
 
         #region parámetros estadísticos
         public double mediaLlegadaCliente = 7.08;
@@ -71,6 +72,7 @@ namespace ModelosTP
             for (int i = 0; i < cantidadCajas.Value; i++)
             {
                 cajas.Add(new Caja());
+                salidaClienteAnterior.Add(0);
             }
 
             for (int i = 0; i < cantidadTerminales.Value; i++)
@@ -79,9 +81,8 @@ namespace ModelosTP
             }
             bool ok = true;
             planificarLlegadaCliente();
-            int horas = Int32.Parse((horasSimulacion.Value * 60).ToString());
-
-            while (TiempoSimulacion < horas  && ok)
+            int minutos = Int32.Parse((horasSimulacion.Value * 60).ToString());
+            while (TiempoSimulacion < minutos  && ok)
             {
                 //Esto es para la barra de progreso
                 int progreso = 0;
@@ -135,8 +136,13 @@ namespace ModelosTP
             }
             try
             {
+                int restarATotalCola = 0;
+                foreach(Caja c in cajas)
+                {
+                    restarATotalCola += c.ColaClientes.Count;
+                }
                 rColaMaximaTerminales.Text = "Tamaño máximo de la cola en terminales: " + maximaColaTerminales;
-                rTiempoEsperaPromedioCajas.Text = "Tiempo de espera promedio en la cola de las cajas: " + (TiempoTotalEsperaEnColaCaja / clientesQueEsperaron);
+                rTiempoEsperaPromedioCajas.Text = "Tiempo de espera promedio en la cola de las cajas: " + (TiempoTotalEsperaEnColaCaja / (clientesQueEsperaron - restarATotalCola));
                 rTiempoEsperaMaximoCajas.Text = "Tiempo de espera máximo en la cola de las cajas: " + TiempoMaximoEsperaEnColaCaja;
                 rTiempoAcumuladoOcioso.Text = "Tiempo acumulado de cajeros ociosos: " + tiempoOcioso + " minutos (~" + (tiempoOcioso / 60) + " horas)";
                 rTiempoTramiteCliente.Text = "Tiempo promedio para trámites de un cliente: " + (TiempoPermanenciaCliente / totalClientesAtendidos).ToString();
@@ -191,14 +197,7 @@ namespace ModelosTP
             }
             else //pasa primero por las terminales
             {
-                if (colaTerminales.Count == 0)
-                {
-                    comenzarAUsarTerminal(e);
-                }
-                else
-                {
-                    colaTerminales.Add(e.Cliente);
-                }
+                comenzarAUsarTerminal(e);
             }
         }
 
@@ -211,22 +210,15 @@ namespace ModelosTP
             calcularTiempoOcioso();
             if (cajas[e.IdCaja].Estado == 0)
             {
+                
                 //Ocupa la caja
                 cajas[e.IdCaja].Estado = 1;
                 //Se asigna el cliente a la caja
                 cajas[e.IdCaja].ClienteQueSeAtiende = e.Cliente;
+
                 //Se planifica el tiempo de uso de la caja
                 planificarTiempoCaja(e.IdCaja, e.Cliente);
-                //Se calcula cuánto tiempo esperó en la cola el cliente
-                int aux = TiempoSimulacion - cajas[e.IdCaja].ClienteQueSeAtiende.HoraLlegadaColaCaja;
-                //Se suma el tiempo que esperó en la cola al total de tiempo de espera en cola
-                TiempoTotalEsperaEnColaCaja += aux;
-                //clientesQueEsperaron++;
-
-                if (aux > TiempoMaximoEsperaEnColaCaja)
-                {
-                    TiempoMaximoEsperaEnColaCaja = aux;
-                }
+                
                 e.TipoEvento = 4;
                 e.Mensaje = "Evento dependiente";
                 loguear(e);
@@ -249,6 +241,7 @@ namespace ModelosTP
         private void terminarAtencCaja(Evento e)
         {
             TiempoSimulacion = e.HoraEjecucionAbsoluta;
+            
             // variable para ahorrar calculos si hay o no cola
             bool hayCola = false;
             //Si hay cola en la caja
@@ -257,9 +250,7 @@ namespace ModelosTP
                //se planifica el siguiente cliente en cola 
                 planificarTiempoCaja(e.IdCaja, cajas[e.IdCaja].ColaClientes[0]);
 
-                TiempoTotalEsperaEnColaCaja += (TiempoSimulacion - e.Cliente.HoraLlegadaColaCaja);
-                //clientesQueEsperaron++;
-                //Evento ev = e;
+                //TiempoTotalEsperaEnColaCaja += (TiempoSimulacion - e.Cliente.HoraLlegadaColaCaja);
                 e.Cliente = cajas[e.IdCaja].ColaClientes[0];
                 e.TipoEvento = 4;
                 e.Mensaje = "Evento dependiente de atender Cliente";
@@ -276,10 +267,29 @@ namespace ModelosTP
             totalClientesAtendidos++;
             //Se suma el total del tiempo que estuvo el cliente en el banco a un totalizador de dicho tiempo :)
             TiempoPermanenciaCliente += (TiempoSimulacion - cajas[e.IdCaja].ClienteQueSeAtiende.HoraLlegada);
-            //El cliente que se está antendiendo FINALMENTE se fue.
-            cajas[e.IdCaja].ClienteQueSeAtiende = null;
+           
             //Se contabiliza un cliente atendido (para esta caja)
             cajas[e.IdCaja].VecesUtilizada += 1;
+
+            int aux = 0;
+            if (cajas[e.IdCaja].ClienteQueSeAtiende.HoraLlegadaColaCaja != -1)
+            {
+                aux = salidaClienteAnterior[e.IdCaja] - cajas[e.IdCaja].ClienteQueSeAtiende.HoraLlegadaColaCaja;
+                //Se suma el tiempo que esperó en la cola al total de tiempo de espera en cola
+                TiempoTotalEsperaEnColaCaja += aux;
+            }
+
+            //El cliente que se está antendiendo FINALMENTE se fue.
+            cajas[e.IdCaja].ClienteQueSeAtiende = null;
+
+            salidaClienteAnterior[e.IdCaja] = TiempoSimulacion;
+
+            //clientesQueEsperaron++;
+
+            if (aux > TiempoMaximoEsperaEnColaCaja)
+            {
+                TiempoMaximoEsperaEnColaCaja = aux;
+            }
 
             //si hay cola se supone que atiende al siguiente
             if (hayCola == true)
@@ -294,31 +304,32 @@ namespace ModelosTP
         /// </summary>
         private void comenzarAUsarTerminal(Evento e)
         {
+            bool libre = false;
             for(int i = 0; i < terminales.Count; i++)
             {
                 Terminal t = terminales[i];
                 if (t.Estado == 0)
                 {
+                    libre = true;
                     t.Estado = 1;
                     t.Cliente = e.Cliente;
                     terminales[i] = t;
-                    //colaTerminales.RemoveAt(0);
                     planificarUsoTerminal(t);
                     e.TipoEvento = 3;
                     e.Mensaje = "Evento dependiente";
                     loguear(e);
                     break;
                 }
-                else
+            }
+            if (!libre)
+            {
+                colaTerminales.Add(e.Cliente);
+                e.TipoEvento = 7;
+                e.Mensaje = "Evento dependiente";
+                loguear(e);
+                if (maximaColaTerminales < colaTerminales.Count)
                 {
-                    colaTerminales.Add(e.Cliente);
-                    e.TipoEvento = 7;
-                    e.Mensaje = "Evento dependiente";
-                    loguear(e);
-                    if (maximaColaTerminales < colaTerminales.Count)
-                    {
-                        maximaColaTerminales = colaTerminales.Count;
-                    }
+                    maximaColaTerminales = colaTerminales.Count;
                 }
             }
         }
@@ -339,11 +350,19 @@ namespace ModelosTP
                     cajaMenor = x;
                 }
             }
-            /*e.Cliente.HoraLlegadaColaCaja = TiempoSimulacion;
-            clientesQueEsperaron++;*/
-
-            e.IdCaja = cajaMenor;
-            comenzarAUsarCaja(e);
+            if (cajas[cajaMenor].ColaClientes.Count > 0)
+            {
+                e.IdCaja = cajaMenor;
+                e.Cliente.HoraLlegadaColaCaja = TiempoSimulacion;
+                cajas[cajaMenor].ColaClientes.Add(e.Cliente);
+                clientesQueEsperaron++;
+            }
+            else
+            {
+                e.Cliente.HoraLlegadaColaCaja = -1;
+                e.IdCaja = cajaMenor;
+                comenzarAUsarCaja(e);
+            }
         }
 
         /// <summary>
@@ -442,6 +461,7 @@ namespace ModelosTP
             clientesEnBanco = 0;
             numeroEvento = -1;
             clientesQueEsperaron = 0;
+            salidaClienteAnterior.Clear();
             
             rColaMaximaTerminales.Text = "Tamaño máximo de la cola en terminales: 0";
             rTiempoEsperaPromedioCajas.Text = "Tiempo de espera promedio en la cola de las cajas: 0";
